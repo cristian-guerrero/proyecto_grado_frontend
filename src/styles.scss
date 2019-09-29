@@ -2,3 +2,34 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.full-width {
+  width: 100%;
+}
+
+@mixin notificationBasic($color) {
+  background: white;
+  border-radius: 5px;
+  border-left: 20px $color solid;
+  padding: 10px 10px 34px 16px !important;
+  max-width: 100%!important;
+  margin: 80px 0 0 0 !important;;
+  @media screen and (min-width: 600px) {
+  max-width: 400px!important;
+  margin: 80px 24px 0 0 !important;;
+  }
+}
+
+.warn {
+  @include notificationBasic(yellow)
+}
+
+.success {
+  @include notificationBasic(green)
+}
+
+.error {
+  @include notificationBasic(red)
+}

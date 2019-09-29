@@ -1,0 +1,16 @@
+
+.contaier{
+  display: flex;
+  flex-direction: column;
+}
+
+.close {
+  display: flex;
+
+  justify-content: flex-end;
+  width: 100%;
+  .button {
+    color: black;
+  }
+}
+
