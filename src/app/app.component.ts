@@ -38,8 +38,8 @@ export class AppComponent {
 
       switch (true) {
         case event instanceof NavigationStart:
-          this.setCanShowToolBar(event as RouterEvent)
           this.loading = true
+          this.setCanShowToolBar(event as RouterEvent)
           break
 
         case event instanceof NavigationEnd:
@@ -73,7 +73,6 @@ export class AppComponent {
 
 
   setCanShowToolBar(event: RouterEvent) {
-    console.log(event)
 
     const exceptions = [
       '/login',

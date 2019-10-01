@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { Router } from '@angular/router'
 import { ParseService } from './parse.service'
@@ -15,7 +15,8 @@ export class SharedService {
 
 
   constructor(private router: Router,
-              private parse: ParseService) {
+              private parse: ParseService,
+              private ngZone: NgZone) {
     this.appOptionsSubject = new BehaviorSubject<any>(this.appDefaultOptions)
     this.appOptionsObservable = this.appOptionsSubject.asObservable()
   }
@@ -42,9 +43,7 @@ export class SharedService {
 
   logOut() {
     this.parse.logOut().then(() => {
-      localStorage.clear()
-      this.router.navigate([ '/login' ])
-
+      this.ngZone.run(() => this.router.navigate([ '/login' ]))
     })
   }
 }

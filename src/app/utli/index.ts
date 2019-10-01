@@ -22,4 +22,6 @@ export class Consts {
     liveQueryUrl: `ws://${serve}/sniffer-backend`, // don't forget use wss in secure enviroment
   }
 
+  public static SNACKBAR_DURATION = 3000
+
 }

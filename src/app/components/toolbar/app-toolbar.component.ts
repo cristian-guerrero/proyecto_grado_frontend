@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { SharedService } from '../../services/shared.service'
 
 @Component({
   selector: 'app-toolbar',
@@ -10,10 +11,13 @@ export class AppToolbarComponent implements OnInit {
 
   @Input() title = 'Nombre pantalla'
 
-  constructor() {
+  constructor(private shared: SharedService) {
   }
 
   ngOnInit() {
   }
 
+  exit() {
+    this.shared.logOut()
+  }
 }

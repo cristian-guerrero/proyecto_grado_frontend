@@ -10,7 +10,7 @@ import { SharedService } from '../services/shared.service'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatTableModule } from '@angular/material/table'
-import { NotifierService } from './notifier/notifier.service'
+// import { NotifierService } from './notifier/notifier.service'
 import { NotifierModule } from './notifier/notifier.module'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -18,6 +18,7 @@ import { AppToolbarComponent } from '../components/toolbar/app-toolbar.component
 import { RouterModule } from '@angular/router'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 
 const ngForms = [ FormsModule, ReactiveFormsModule ]
 
@@ -43,6 +44,7 @@ const materialModules = [
 
   MatProgressBarModule,
   MatProgressSpinnerModule,
+  MatBottomSheetModule,
 ]
 
 const declaration = [
@@ -58,7 +60,7 @@ const declaration = [
     ...modules,
     ...materialModules,
     ...ngForms,
-    NotifierModule.forRoot(),
+    // NotifierModule.forRoot(),
   ],
   exports: [
     ...modules,

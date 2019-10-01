@@ -8,7 +8,8 @@ import { NotifierComponent } from './notifier.component'
 })
 export class NotifierService {
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {
+  }
 
   /**
    *

@@ -1,26 +1,19 @@
-<form class="row middle-xs center-xs " style="height: 80vh" [formGroup]="form" (submit)="send()">
-  <div class="col-xs-12  col-md-5 col-lg-4">
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 80%">
+  <div fxFlex="100%" fxFlex.gt-sm="40%">
+    <form fxLayout="column" [formGroup]="form" (submit)="send()">
 
+      <h1 style="text-align: center">Ingreso</h1>
 
-    <div class="row">
-      <div class="col-xs-12  ">
-        <h1>Ingreso</h1>
-      </div>
-    </div>
-
-    <div class="row">
-      <mat-form-field class="col-xs-12  " appearance="outline">
+      <mat-form-field appearance="outline">
         <mat-label>Nombre de Usuario</mat-label>
         <input matInput autocomplete="off"
                [formControlName]="formField.USER_NAME">
         <mat-error *ngIf="form.get(formField.USER_NAME).hasError('required')">
           El Usuario es Requerido
         </mat-error>
-
       </mat-form-field>
-    </div>
-    <div class="row">
-      <mat-form-field class="col-xs-12 " appearance="outline">
+
+      <mat-form-field appearance="outline">
         <mat-label>Contraseña</mat-label>
         <input matInput autocomplete="off"
                [formControlName]="formField.PASSWORD" [type]="pFiedType">
@@ -31,20 +24,13 @@
                   style="cursor: pointer">visibility
         </mat-icon>
       </mat-form-field>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 ">
-        <button mat-flat-button color="primary" class="full-width"
-                (click)="send()"
-                [disabled]="!form.valid || loading">
-          <span>Ingresar</span>
 
-        </button>
-      </div>
-    </div>
+      <button mat-flat-button color="primary" class="full-width"
+              (click)="send()"
+              [disabled]="!form.valid || loading">
+        <span>Ingresar</span>
+      </button>
 
+    </form>
   </div>
-
-</form>
-
-
+</div>

@@ -11,7 +11,9 @@ import { SnifferTokenListComponent } from './screens/sniffer-token/sniffer-token
 import { SnifferTokenFormComponent } from './screens/sniffer-token/sniffer-token-form/sniffer-token-form.component'
 import { SnifferDataListComponent } from './screens/sniffer-data/sniffer-data-list/sniffer-data-list.component'
 import { SnifferDataDetailComponent } from './screens/sniffer-data/sniffer-data-detail/sniffer-data-detail.component'
-import { SniffersListComponent } from './screens/sniffers/sniffers-list/sniffers-list.component'
+import { SniffersListComponent } from './screens/sniffers/sniffers-list/sniffers-list.component';
+import { SnifferFormComponent } from './screens/sniffers/sniffer-form/sniffer-form.component';
+import { FabButtonComponent } from './components/fab-button/fab-button.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { SniffersListComponent } from './screens/sniffers/sniffers-list/sniffers
     SnifferDataListComponent,
     SnifferDataDetailComponent,
     SniffersListComponent,
+    SnifferFormComponent,
+    FabButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +35,10 @@ import { SniffersListComponent } from './screens/sniffers/sniffers-list/sniffers
     SharedModule.forRoot()
   ],
   providers: [],
+  entryComponents: [
+    SnifferTokenFormComponent,
+    SnifferFormComponent,
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

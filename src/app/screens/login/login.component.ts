@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ParseService } from '../../services/parse.service'
 import { NotifierService } from '../../modules/notifier/notifier.service'
 import { Router } from '@angular/router'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private parse: ParseService,
-              private notifier: NotifierService,
-              private router: Router) {
+              private router: Router,
+              private ngZone: NgZone) {
     this.form = this.buildForm(this.fb)
   }
 
@@ -46,11 +47,12 @@ export class LoginComponent implements OnInit {
     this.parse.logIn(this.form.value).subscribe(response => {
       console.log(response)
       this.loading = false
-      this.router.navigate(['/sniffer-data'])
+      this.ngZone.run(() => this.router.navigate([ '/sniffer-data' ]))
+      // this.notifier.showSuccess('Bienvenido')
     }, err => {
       this.loading = false
       console.log(err)
-      this.notifier.showError('Nombre de usuario o contraseña incorrectas')
+      // this.notifier.showError('Nombre de usuario o contraseña incorrectas')
     })
   }
 
