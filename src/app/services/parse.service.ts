@@ -15,8 +15,8 @@ export class ParseService {
     parseRequire.serverURL = Consts.parseConf.serverURL
   }
 
-  logOut(): void {
-    Parse.User.logOut()
+  logOut(): Promise<any> {
+   return  Parse.User.logOut()
   }
 
 

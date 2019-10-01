@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-sniffer-token-list',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SnifferTokenListComponent implements OnInit {
 
-  constructor() { }
+  data
+  constructor(private route: ActivatedRoute) {
+
+  }
 
   ngOnInit() {
+
+    this.data = this.route.snapshot.data
+    console.log(this.data)
   }
 
 }

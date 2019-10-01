@@ -1,9 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-// import { FlexLayoutModule } from '@angular/flex-layout'
+import { FlexLayoutModule } from '@angular/flex-layout'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import {  MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { ParseService } from '../services/parse.service'
 import { SharedService } from '../services/shared.service'
@@ -13,6 +13,11 @@ import { MatTableModule } from '@angular/material/table'
 import { NotifierService } from './notifier/notifier.service'
 import { NotifierModule } from './notifier/notifier.module'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { AppToolbarComponent } from '../components/toolbar/app-toolbar.component'
+import { RouterModule } from '@angular/router'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 const ngForms = [ FormsModule, ReactiveFormsModule ]
 
@@ -22,7 +27,8 @@ const providers = [
 ]
 
 const modules = [
-  // FlexLayoutModule,
+  FlexLayoutModule,
+  RouterModule
 ]
 
 const materialModules = [
@@ -32,11 +38,16 @@ const materialModules = [
   MatInputModule,
   MatButtonModule,
   MatTableModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatToolbarModule,
 
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
 ]
 
-const declaration = []
+const declaration = [
+  AppToolbarComponent
+]
 
 @NgModule({
   declarations: [
@@ -47,7 +58,7 @@ const declaration = []
     ...modules,
     ...materialModules,
     ...ngForms,
-    NotifierModule.forRoot()
+    NotifierModule.forRoot(),
   ],
   exports: [
     ...modules,

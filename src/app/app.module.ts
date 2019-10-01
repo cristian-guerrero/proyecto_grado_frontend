@@ -11,6 +11,7 @@ import { SnifferTokenListComponent } from './screens/sniffer-token/sniffer-token
 import { SnifferTokenFormComponent } from './screens/sniffer-token/sniffer-token-form/sniffer-token-form.component'
 import { SnifferDataListComponent } from './screens/sniffer-data/sniffer-data-list/sniffer-data-list.component'
 import { SnifferDataDetailComponent } from './screens/sniffer-data/sniffer-data-detail/sniffer-data-detail.component'
+import { SniffersListComponent } from './screens/sniffers/sniffers-list/sniffers-list.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SnifferDataDetailComponent } from './screens/sniffer-data/sniffer-data-
     SnifferTokenListComponent,
     SnifferTokenFormComponent,
     SnifferDataListComponent,
-    SnifferDataDetailComponent
+    SnifferDataDetailComponent,
+    SniffersListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <!--
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    -->
+    <h1 fxShow fxHide.xs="true" >{{ title }}</h1>
+    <span class="spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/sniffer-token'"> Tokens </a>
+      <a mat-button [routerLink]="'/sniffer-data'"> Datos </a>
+      <a mat-button [routerLink]="'/sniffers-list'"> Sniffers </a>
+
+    </div>
+  </mat-toolbar-row>
+  <!--
+    <mat-toolbar-row>
+        <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+      </mat-toolbar-row>
+      -->
+</mat-toolbar>
