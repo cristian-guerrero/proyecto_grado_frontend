@@ -10,7 +10,7 @@ import { SnifferFormComponent } from '../sniffer-form/sniffer-form.component'
 })
 export class SniffersListComponent implements OnInit {
 
-  data
+  data: Parse.Object []
 
   constructor(private route: ActivatedRoute,
               private bottonSheet: MatBottomSheet) {
@@ -19,12 +19,12 @@ export class SniffersListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.data = this.route.snapshot.data
+    this.data = this.route.snapshot.data.data
     console.log(this.data)
   }
 
 
-  openAddDialog( object?: Parse.Object) {
+  openAddDialog(object?: Parse.Object) {
 
     this.bottonSheet.open(SnifferFormComponent, {
       data: { object }

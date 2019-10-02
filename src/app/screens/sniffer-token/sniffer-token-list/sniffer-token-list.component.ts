@@ -19,7 +19,7 @@ export class SnifferTokenListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.data = this.route.snapshot.data
+    this.data = this.route.snapshot.data.data
     console.log(this.data)
   }
 

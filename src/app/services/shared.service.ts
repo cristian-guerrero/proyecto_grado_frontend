@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { Router } from '@angular/router'
 import { ParseService } from './parse.service'
+import { FormGroup } from '@angular/forms'
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,19 @@ export class SharedService {
     this.parse.logOut().then(() => {
       this.ngZone.run(() => this.router.navigate([ '/login' ]))
     })
+  }
+
+  /**
+   *
+   * @param form
+   */
+  prepareObjectToUpdate(form: FormGroup): any {
+    const dataToUpdate = {}
+    for (const control in form.controls) {
+      if (!form.controls[ control ].dirty) {continue}
+      dataToUpdate[ control ] = form.controls[ control ].value
+    }
+    return dataToUpdate
   }
 }
 

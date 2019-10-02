@@ -1,10 +1,48 @@
-<p>sniffer-form works!</p>
+<form [formGroup]="form" fxLayout="column">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput autocomplete="off"
+           [formControlName]="formField.NAME">
+    <mat-error *ngIf="form.get(formField.NAME).hasError('required')">
+      El nombre es requerido
+    </mat-error>
+  </mat-form-field>
 
 
+  <mat-form-field appearance="outline">
+    <mat-label>IP</mat-label>
+    <input matInput autocomplete="off"
+           [formControlName]="formField.IP">
+    <mat-error *ngIf="form.get(formField.IP).hasError('required')">
+      La IP es requerida
+    </mat-error>
+    <mat-error *ngIf="form.get(formField.IP).hasError('pattern')">
+      La IP no es valida
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Configuración</mat-label>
+    <textarea matInput [formControlName]="formField.CONFIG" autocomplete="off" rows="10"></textarea>
+    <mat-error *ngIf="form.get(formField.CONFIG).hasError('required')">
+      La configuración es requerida
+    </mat-error>
+
+    <mat-error *ngIf="form.get(formField.CONFIG).hasError('invalidJSON')">
+      JSON invalido
+    </mat-error>
+  </mat-form-field>
 
 
-<button mat-flat-button (click)="action()" color="primary" >Guardar</button>
-<button mat-flat-button (click)="cancel()" >Cancelar</button>
+  <div fxLayout="row">
+    <button mat-flat-button (click)="action()" color="primary"
+            fxFlex="50%"
+            [disabled]="!form.valid">Guardar
+    </button>
+    <button fxFlex="50%" mat-flat-button (click)="cancel()">Cancelar</button>
+  </div>
 
+</form>
 
 

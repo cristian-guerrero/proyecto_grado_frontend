@@ -4,6 +4,7 @@ import { ParseService } from '../../services/parse.service'
 import { NotifierService } from '../../modules/notifier/notifier.service'
 import { Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { UserClass } from '../../models/user-class'
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup
   loading: boolean
-  formField = LoginModel
+  formField = UserClass
   pFiedType = 'password'
   pIconTooltip = 'Mostrar Contraseña'
 
@@ -32,8 +33,8 @@ export class LoginComponent implements OnInit {
 
   buildForm(builder: FormBuilder) {
     return builder.group({
-      [ LoginModel.USER_NAME ]: [ null, [ Validators.required ] ],
-      [ LoginModel.PASSWORD ]: [ null, [ Validators.required ] ],
+      [ UserClass.USER_NAME ]: [ null, [ Validators.required ] ],
+      [ UserClass.PASSWORD ]: [ null, [ Validators.required ] ],
     })
   }
 
@@ -69,8 +70,4 @@ export class LoginComponent implements OnInit {
 }
 
 
-export class LoginModel {
-  public static USER_NAME = 'username'
-  public static PASSWORD = 'password'
 
-}
