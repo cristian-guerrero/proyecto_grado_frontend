@@ -48,7 +48,8 @@ export class LoginComponent implements OnInit {
     this.parse.logIn(this.form.value).subscribe(response => {
       console.log(response)
       this.loading = false
-      this.ngZone.run(() => this.router.navigate([ '/sniffer-data' ]))
+      // this.ngZone.run(() => this.router.navigate([ '/sniffer-data' ]))
+      this.router.navigate([ '/sniffer-data' ])
       // this.notifier.showSuccess('Bienvenido')
     }, err => {
       this.loading = false

@@ -13,7 +13,8 @@ import { SnifferDataListComponent } from './screens/sniffer-data/sniffer-data-li
 import { SnifferDataDetailComponent } from './screens/sniffer-data/sniffer-data-detail/sniffer-data-detail.component'
 import { SniffersListComponent } from './screens/sniffers/sniffers-list/sniffers-list.component';
 import { SnifferFormComponent } from './screens/sniffers/sniffer-form/sniffer-form.component';
-import { FabButtonComponent } from './components/fab-button/fab-button.component'
+import { FabButtonComponent } from './components/fab-button/fab-button.component';
+import { AccordionComponent } from './components/accordion/accordion.component'
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FabButtonComponent } from './components/fab-button/fab-button.component
     SniffersListComponent,
     SnifferFormComponent,
     FabButtonComponent,
+    AccordionComponent,
   ],
   imports: [
     BrowserModule,

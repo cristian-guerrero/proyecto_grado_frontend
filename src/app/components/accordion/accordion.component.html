@@ -1,0 +1,26 @@
+<mat-paginator #paginator
+               [length]="totalRows$ | async"
+               [pageIndex]="0"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 25, 100]"
+></mat-paginator>
+
+<mat-accordion displayMode="flat" multi class="mat-table">
+  <section matSort class=" mat-header-row">
+    <span class="mat-header-cell" mat-sort-header="vesselName">Name</span>
+    <span class="mat-header-cell" mat-sort-header="vesselId">Vessel Id</span>
+    <span class="mat-header-cell" mat-sort-header="vesselStatus">Status</span>
+    <span class="mat-header-cell" mat-sort-header="ircs">IRCS</span>
+  </section>
+
+  <mat-expansion-panel *ngFor="let item of displayedRows$ | async">
+    <mat-expansion-panel-header class="mat-row">
+      <span class="mat-cell">{{item.vesselName}}</span>
+      <span class="mat-cell">{{item.vesselId}}</span>
+      <span class="mat-cell">{{item.vesselStatus}}</span>
+      <span class="mat-cell">{{item.ircs}}</span>
+    </mat-expansion-panel-header>
+    <div><pre>{{item | json}}</pre></div>
+  </mat-expansion-panel>
+
+</mat-accordion>

@@ -16,7 +16,7 @@ export class ParseService {
   }
 
   logOut(): Promise<any> {
-   return  Parse.User.logOut()
+    return Parse.User.logOut()
   }
 
 
@@ -31,7 +31,7 @@ export class ParseService {
 
   getObjectByIdWithQuery = (id: string, query: Parse.Query): Observable<Parse.Object> => {
     return from(query.get(id)).pipe(catchError(err => {
-        this.handleErros(err)
+        this.handleErrors(err)
         return throwError(err)
       })
     )
@@ -44,7 +44,7 @@ export class ParseService {
       query.limit(2000)
     }
     return from(query.find()).pipe(catchError(err => {
-        this.handleErros(err)
+        this.handleErrors(err)
         return throwError(err)
       })
     )
@@ -55,7 +55,7 @@ export class ParseService {
   updateObject = (ob: Parse.Object, data: any): Observable<Parse.Object> => {
     ob.set(data)
     return from(ob.save()).pipe(catchError(err => {
-        this.handleErros(err)
+        this.handleErrors(err)
         return throwError(err)
       })
     )
@@ -70,7 +70,7 @@ export class ParseService {
 
   findFirstByQuery = (query: Parse.Query): Observable<Parse.Object> => {
     return from(query.first()).pipe(catchError(err => {
-        this.handleErros(err)
+        this.handleErrors(err)
         return throwError(err)
       })
     )
@@ -79,7 +79,7 @@ export class ParseService {
 
   runCloudFunction = (name: string, data: any = null): Observable<any> => {
     return from(Parse.Cloud.run(name, data)).pipe(catchError(err => {
-        this.handleErros(err)
+        this.handleErrors(err)
         return throwError(err)
       })
     )
@@ -92,7 +92,7 @@ export class ParseService {
     ob.set(data)
     ob.setACL(acl)
     return from(ob.save()).pipe(catchError(err => {
-        this.handleErros(err)
+        this.handleErrors(err)
         return throwError(err)
       })
     )
@@ -111,11 +111,25 @@ export class ParseService {
 
 
   count(query: Parse.Query): Observable<number> {
-    return from(query.count())
+    return from(query.count()).pipe(catchError(err => {
+      this.handleErrors(err)
+      return throwError(err)
+    }))
   }
 
-  handleErros(err: Parse.Error) {
+  findWithCount(query: Parse.Query, limit?: number, skip?: number): Observable<DataWithCount> {
+    if (limit) {query.limit(limit)}
+    if (skip) {query.skip(skip)}
+    return forkJoin([ this.count(query), this.findByQuery(query, false) ]).pipe(
+      map(res => ({ count: res[ 0 ], data: res[ 1 ] })),
+      catchError(err => {
+        this.handleErrors(err)
+        return throwError(err)
+      })
+    )
+  }
 
+  handleErrors(err: Parse.Error) {
     if (err.code === 209) {
 
       // todo log out
@@ -123,4 +137,11 @@ export class ParseService {
   }
 
 
+}
+
+
+export interface DataWithCount {
+
+  count: number
+  data: Parse.Object[]
 }
