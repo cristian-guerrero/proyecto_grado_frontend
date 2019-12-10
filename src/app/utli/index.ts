@@ -31,7 +31,7 @@ export class Consts {
 
   public static SNACKBAR_DURATION = 3000
 
-  public static  get PUBLIC_ACL  () {
+  public static  get PUBLIC_ACL() {
     const acl = new Parse.ACL()
     acl.setPublicWriteAccess(true)
     acl.setPublicReadAccess(true)

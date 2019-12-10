@@ -44,7 +44,7 @@ export class SharedService {
 
   logOut() {
     this.parse.logOut().then(() => {
-      this.ngZone.run(() => this.router.navigate([ '/login' ]))
+      this.router.navigate([ '/login' ])
     })
   }
 

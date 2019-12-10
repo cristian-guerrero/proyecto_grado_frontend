@@ -1,0 +1,31 @@
+<p>table works!</p>
+
+<app-filter-by-colum></app-filter-by-colum>
+
+<mat-paginator
+    (page)="onChangePage($event)"
+    [length]="totalRows"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+
+</mat-paginator>
+
+<div class="table-container mat-elevation-z8">
+
+
+  <table mat-table [dataSource]="dataSource">
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+
+    <ng-container [matColumnDef]="c" *ngFor="let c of columns">
+      <th mat-header-cell *matHeaderCellDef>{{c}}</th>
+      <td mat-cell *matCellDef="let element"> {{element.attributes[c]}} </td>
+    </ng-container>
+
+
+  </table>
+
+</div>
+

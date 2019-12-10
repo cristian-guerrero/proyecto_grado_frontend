@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+  min-height: 200px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mat-cell {
+  margin: 0 10px;
+  min-width: 100px;
+}

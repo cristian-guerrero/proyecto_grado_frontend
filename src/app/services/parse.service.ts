@@ -3,6 +3,7 @@ import * as Parse from 'parse'
 import { BehaviorSubject, forkJoin, from, Observable, of, Subject, throwError } from 'rxjs'
 import { catchError, defaultIfEmpty, map, mergeMap, skipWhile, tap } from 'rxjs/operators'
 import { Consts } from '../utli'
+import { Router } from '@angular/router'
 
 const parseRequire = require('parse')
 
@@ -10,7 +11,7 @@ const parseRequire = require('parse')
 @Injectable()
 export class ParseService {
 
-  constructor() {
+  constructor(private router: Router) {
     Parse.initialize(Consts.parseConf.applicationId)
     parseRequire.serverURL = Consts.parseConf.serverURL
   }
@@ -117,10 +118,18 @@ export class ParseService {
     }))
   }
 
-  findWithCount(query: Parse.Query, limit?: number, skip?: number): Observable<DataWithCount> {
+  findWithCount(query: Parse.Query, limit?: number, skip?: number, withCount = true): Observable<DataWithCount> {
+
     if (limit) {query.limit(limit)}
     if (skip) {query.skip(skip)}
-    return forkJoin([ this.count(query), this.findByQuery(query, false) ]).pipe(
+
+    const observables = [
+      withCount ? this.count(query) : of(null),
+      this.findByQuery(query, !Number.isInteger(limit))
+    ]
+
+
+    return forkJoin(observables).pipe(
       map(res => ({ count: res[ 0 ], data: res[ 1 ] })),
       catchError(err => {
         this.handleErrors(err)
@@ -131,8 +140,7 @@ export class ParseService {
 
   handleErrors(err: Parse.Error) {
     if (err.code === 209) {
-
-      // todo log out
+      this.logOut().then(() => this.router.navigate([ '/login' ]))
     }
   }
 

@@ -22,6 +22,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatSortModule } from '@angular/material/sort'
+import { DataTableModule } from './data-table/data-table.module'
 
 const ngForms = [ FormsModule, ReactiveFormsModule ]
 
@@ -32,7 +33,8 @@ const providers = [
 
 const modules = [
   FlexLayoutModule,
-  RouterModule
+  RouterModule,
+  DataTableModule,
 ]
 
 const materialModules = [
@@ -41,16 +43,13 @@ const materialModules = [
   MatTooltipModule,
   MatInputModule,
   MatButtonModule,
-  MatTableModule,
   MatSnackBarModule,
   MatToolbarModule,
 
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatBottomSheetModule,
-  MatExpansionModule,
-  MatPaginatorModule,
-  MatSortModule
+
 ]
 
 const declaration = [
