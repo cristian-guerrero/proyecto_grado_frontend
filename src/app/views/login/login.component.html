@@ -1,36 +1,39 @@
-<div fxLayout="row" fxLayoutAlign="center center" style="height: 80%">
-  <div fxFlex="100%" fxFlex.gt-sm="40%">
-    <form fxLayout="column" [formGroup]="form" (submit)="send()">
+<div class="component-container"  style="height: 100%">
+  <div fxLayout="row" fxLayoutAlign="center center" style="height: 80%">
+    <div fxFlex="100%" fxFlex.gt-sm="40%">
+      <form fxLayout="column" [formGroup]="form" (submit)="send()">
 
-      <h1 style="text-align: center">Ingreso</h1>
+        <h1 style="text-align: center">Ingreso</h1>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre de Usuario</mat-label>
-        <input matInput autocomplete="off"
-               [formControlName]="formField.USER_NAME">
-        <mat-error *ngIf="form.get(formField.USER_NAME).hasError('required')">
-          El Usuario es Requerido
-        </mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de Usuario</mat-label>
+          <input matInput autocomplete="off"
+                 [formControlName]="formField.USER_NAME">
+          <mat-error *ngIf="form.get(formField.USER_NAME).hasError('required')">
+            El Usuario es Requerido
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input matInput autocomplete="off"
-               [formControlName]="formField.PASSWORD" [type]="pFiedType">
-        <mat-error *ngIf="form.get(formField.PASSWORD).hasError('required')">
-          La Contraseña es Requerida
-        </mat-error>
-        <mat-icon matSuffix (click)="showPassword()" [matTooltip]="pIconTooltip"
-                  style="cursor: pointer">visibility
-        </mat-icon>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput autocomplete="off"
+                 [formControlName]="formField.PASSWORD" [type]="pFiedType">
+          <mat-error *ngIf="form.get(formField.PASSWORD).hasError('required')">
+            La Contraseña es Requerida
+          </mat-error>
+          <mat-icon matSuffix (click)="showPassword()" [matTooltip]="pIconTooltip"
+                    style="cursor: pointer">visibility
+          </mat-icon>
+        </mat-form-field>
 
-      <button mat-flat-button color="primary" class="full-width"
-              (click)="send()"
-              [disabled]="!form.valid || loading">
-        <span>Ingresar</span>
-      </button>
+        <button mat-flat-button color="primary" class="full-width big-button"
+                (click)="send()"
+                [disabled]="!form.valid || loading">
+          <span>Ingresar</span>
+        </button>
 
-    </form>
+      </form>
+    </div>
   </div>
+
 </div>

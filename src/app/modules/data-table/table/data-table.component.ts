@@ -106,10 +106,11 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
 
   findData([ skip, limit ], query, withCount) {
     this.subscription = this.parse.findWithCount(query, limit, skip, withCount).subscribe(res => {
-      // console.log(res, limit, skip)
-      if (withCount) {
+      console.log(res, limit, skip)
+      if (res.count) {
         this.totalRows = res.count
       }
+      // console.log(res.data)
       this.data = res.data
       // this.mapDataTable()
       this.dataSource = new MatTableDataSource<Parse.Object>(this.data)
@@ -122,6 +123,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     if (!this.pageEvent || isNewQuery) {
       this.findData([ 0, this.pageSize ], query, true)
     } else {
+      console.log(this.pageEvent.pageSize * this.pageEvent.pageIndex, this.pageEvent.pageSize)
       this.findData([ this.pageEvent.pageSize * this.pageEvent.pageIndex, this.pageEvent.pageSize ],
         query, false)
     }

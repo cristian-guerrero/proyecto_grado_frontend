@@ -1,1 +1,62 @@
-<p>filter-by-colum works!</p>
+<div fxFlex="50%">
+
+
+  <form [formGroup]="form" fxLayout="row" fxLayoutGap="16px">
+
+    <mat-form-field appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
+      <mat-label>Columna</mat-label>
+      <mat-select [formControlName]="'attribute'">
+        <mat-option *ngFor="let c of colums" [value]="c.value">
+          {{c.label}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('attribute').hasError('required')">
+        El valor de busqueda es requerido
+      </mat-error>
+    </mat-form-field>
+
+
+    <ng-container *ngIf="getColumType() === columnType.TEXT">
+      <mat-form-field appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
+        <mat-label>Valor de busqueda</mat-label>
+        <input matInput autocomplete="off"
+               [formControlName]="'value'">
+        <mat-error *ngIf="form.get('value').hasError('required')">
+          El valor de busqueda es requerido
+        </mat-error>
+      </mat-form-field>
+
+    </ng-container>
+
+
+    <ng-container *ngIf="getColumType() === columnType.DATE">
+
+      <mat-form-field appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
+        <mat-label>Fecha de busqueda</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </ng-container>
+
+
+    <div fxFlex="100%" fxFlex.gt-sm="25%">
+      <button mat-flat-button color="primary"
+              [disabled]="!form.valid"
+              (click)="buildQuery()"
+              class="big-button">Filtrar
+      </button>
+
+    </div>
+    <div fxFlex="100%" fxFlex.gt-sm="25%">
+
+      <button mat-flat-button color="warn"
+              (click)="resetFilter()"
+              class="big-button">Reiniciar filtros
+      </button>
+    </div>
+  </form>
+
+
+</div>

@@ -1,6 +1,6 @@
 <p>table works!</p>
 
-<app-filter-by-colum></app-filter-by-colum>
+<app-filter-by-colum [(query)]="query"></app-filter-by-colum>
 
 <mat-paginator
     (page)="onChangePage($event)"
@@ -11,7 +11,7 @@
 
 </mat-paginator>
 
-<div class="table-container mat-elevation-z8">
+<div class="table-container ">
 
 
   <table mat-table [dataSource]="dataSource">

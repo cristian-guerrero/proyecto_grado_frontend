@@ -3,16 +3,16 @@ import * as Parse from 'parse'
 /**
  * public server
  */
-export const serve = 'https://sniffer-back.ddns.net'
+// export const serve = 'https://sniffer-back.ddns.net'
 /**
  * local server
  */
-// export const serve = 'http://localhost:5337'
+export const serve = 'http://localhost:5337'
 
 
 export class Consts {
 
-  public static readonly APP_VERSION = '0.0.1'
+  public static readonly APP_VERSION = '0.0.2'
 
   public static readonly PATTERNS = {
     emailExpression: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -23,19 +23,38 @@ export class Consts {
 
 
   public static readonly parseConf = {
-    applicationId: 'facturacionElectronica',
-    serverURL: `${serve}/sniffer-backend`,
+    applicationId: 'proyectoGradoSniffer',
+    serverURL: `${ serve }/sniffer-backend`,
     // ------------ live query url (web socket) --`---------- //
-    liveQueryUrl: `ws://${serve}/sniffer-backend`, // don't forget use wss in secure enviroment
+    liveQueryUrl: `ws://${ serve }/sniffer-backend`, // don't forget use wss in secure enviroment
   }
 
   public static SNACKBAR_DURATION = 3000
 
-  public static  get PUBLIC_ACL() {
+  public static get PUBLIC_ACL() {
     const acl = new Parse.ACL()
     acl.setPublicWriteAccess(true)
     acl.setPublicReadAccess(true)
     return acl
+  }
+
+  public static get COLUMNS_NAME() {
+
+    return {
+
+      objectId: 'Id',
+      ip: 'IP',
+      config: 'Configuración',
+      updatedAt: 'Fecha de Actualización',
+      createdAt: 'Fecha de Creación',
+      name: 'Nombre',
+    }
+
+
+  }
+
+  public static readonly CLOUD_FUNCTION = {
+    FILTER_COLUMNS: '_filter_columns'
   }
 
 }
