@@ -106,7 +106,7 @@ export class ParseService {
 
   }
 
-  query(className) {
+  query(className: string ): Parse.Query {
     return new Parse.Query(className)
   }
 

@@ -14,6 +14,7 @@ export class TokensResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log(route.data)
     // return undefined
-    return of(route.data).pipe(delay(3000))
+  //   return of(route.data).pipe(delay(3000))
+    return of(route.data).pipe()
   }
 }

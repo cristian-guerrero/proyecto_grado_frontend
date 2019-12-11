@@ -1,10 +1,32 @@
 <p>sniffer-token-form works!</p>
 
 
+<form [formGroup]="form">
+
+  <mat-form-field style="width: 100%" appearance="outline">
+    <mat-label>Sniffer</mat-label>
+    <input type="text"
+           matInput [formControlName]="formField.SNIFFER" [matAutocomplete]="auto"
+           [required]="true"
+    >
+
+    <mat-spinner color="accent" matSuffix
+        *ngIf="isLoadingAutocomplete"></mat-spinner>
+
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAutocomplete">
+      <mat-option *ngFor="let option of filteredLeList | async" [value]="option">
+        {{option.label}}
+      </mat-option>
+    </mat-autocomplete>
+
+    <mat-error *ngIf="form.get(formField.SNIFFER).hasError('required')">
+      El sniffer es requerido
+    </mat-error>
+  </mat-form-field>
 
 
+</form>
 
 
-
-<button mat-flat-button (click)="action()" color="primary" >Guardar</button>
-<button mat-flat-button (click)="cancel()" >Cancelar</button>
+<button mat-flat-button (click)="action()" color="primary">Guardar</button>
+<button mat-flat-button (click)="cancel()">Cancelar</button>
