@@ -83,6 +83,9 @@
                                 <a href="#findData">findData</a>
                             </li>
                             <li>
+                                <a href="#query">query</a>
+                            </li>
+                            <li>
                                 <a href="#resolve">resolve</a>
                             </li>
                         </ul>
@@ -173,8 +176,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="21"
-                            class="link-to-prism">src/app/resolvers/sniffers-resolver.service.ts:21</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/resolvers/sniffers-resolver.service.ts:22</a></div>
                 </td>
             </tr>
 
@@ -184,6 +187,45 @@
 
                     <div class="io-description">
                         <b>Returns : </b>    <code>Observable&lt;Parse.Object[]&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="query"></a>
+                    <span class="name">
+                        <b>
+                            query
+                        </b>
+                        <a href="#query"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>query()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/resolvers/sniffers-resolver.service.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;Parse.Query&gt;</code>
 
                     </div>
                 </td>
@@ -277,13 +319,13 @@
 
 
         <div class="tab-pane fade  tab-source-code" id="c-source">
-            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from &#x27;@angular/router&#x27;
 import { Observable, of } from &#x27;rxjs&#x27;
-import { delay } from &#x27;rxjs/operators&#x27;
 import { SnifferClass } from &#x27;../models/sniffer-class&#x27;
 import { ParseService } from &#x27;../services/parse.service&#x27;
 import * as Parse from &#x27;parse&#x27;
+
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
@@ -294,13 +336,18 @@ export class SniffersResolverService implements Resolve&lt;any&gt; {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable&lt;any&gt; {
     console.log(route.data)
-    return this.findData()
+    // return this.findData()
+    return this.query()
   }
 
   findData(): Observable&lt;Parse.Object[]&gt; {
     // todo hacer una funcion que busque paginado
     const q &#x3D; new Parse.Query(SnifferClass.className)
     return this.parse.findByQuery(q)
+  }
+
+  query(): Observable&lt;Parse.Query&gt; {
+    return of(new Parse.Query(SnifferClass.className))
   }
 }
 </code></pre>

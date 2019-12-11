@@ -62,7 +62,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/screens/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts</code>
+    <code>src/app/views/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts</code>
 </p>
 
 
@@ -122,6 +122,20 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#query">query</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -152,15 +166,45 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor()</code>
+<code>constructor(route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/screens/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/views/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts:11</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -196,8 +240,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/screens/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/app/views/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts:15</a></div>
                 </td>
             </tr>
 
@@ -214,12 +258,46 @@
         </tbody>
     </table>
 </section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query"></a>
+                        <span class="name">
+                            <b>
+                            query</b>
+                            <a href="#query"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Parse.Query</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/views/sniffer-data/sniffer-data-list/sniffer-data-list.component.ts:11</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;
 
 @Component({
   selector: &#x27;app-sniffer-data-list&#x27;,
@@ -228,9 +306,12 @@
 })
 export class SnifferDataListComponent implements OnInit {
 
-  constructor() { }
+  query: Parse.Query
+
+  constructor(private route: ActivatedRoute,) { }
 
   ngOnInit() {
+    this.query &#x3D; this.route.snapshot.data.data
   }
 
 }
@@ -241,8 +322,9 @@ export class SnifferDataListComponent implements OnInit {
         <pre class="line-numbers"><code class="language-html">
 &lt;p&gt;sniffer-data-list works!&lt;/p&gt;
 
-
+&lt;!--
 &lt;app-fab-button&gt;&lt;/app-fab-button&gt;
+--&gt;
 </code></pre>
     </div>
 
@@ -278,8 +360,8 @@ export class SnifferDataListComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>sniffer-data-list works!</p><app-fab-button></app-fab-button></div>'
-    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'app-accordion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppToolbarComponent', 'selector': 'app-toolbar'},{'name': 'FabButtonComponent', 'selector': 'app-fab-button'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotifierComponent', 'selector': 'app-notifier'},{'name': 'SnifferDataDetailComponent', 'selector': 'app-sniffer-data-detail'},{'name': 'SnifferDataListComponent', 'selector': 'app-sniffer-data-list'},{'name': 'SnifferFormComponent', 'selector': 'app-sniffer-form'},{'name': 'SniffersListComponent', 'selector': 'app-sniffers-list'},{'name': 'SnifferTokenFormComponent', 'selector': 'app-sniffer-token-form'},{'name': 'SnifferTokenListComponent', 'selector': 'app-sniffer-token-list'}];
+        var COMPONENT_TEMPLATE = '<div><p>sniffer-data-list works!</p><!--<app-fab-button></app-fab-button>--></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppToolbarComponent', 'selector': 'app-toolbar'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'DetailsComponent', 'selector': 'app-details'},{'name': 'FabButtonComponent', 'selector': 'app-fab-button'},{'name': 'FilterByColumComponent', 'selector': 'app-filter-by-colum'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotifierComponent', 'selector': 'app-notifier'},{'name': 'SnifferDataDetailComponent', 'selector': 'app-sniffer-data-detail'},{'name': 'SnifferDataListComponent', 'selector': 'app-sniffer-data-list'},{'name': 'SnifferFormComponent', 'selector': 'app-sniffer-form'},{'name': 'SniffersListComponent', 'selector': 'app-sniffers-list'},{'name': 'SnifferTokenFormComponent', 'selector': 'app-sniffer-token-form'},{'name': 'SnifferTokenListComponent', 'selector': 'app-sniffer-token-list'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SnifferDataListComponent'};
 </script>

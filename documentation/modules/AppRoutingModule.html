@@ -73,15 +73,16 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;
 import { Routes, RouterModule } from &#x27;@angular/router&#x27;
-import { NotFoundComponent } from &#x27;../screens/not-found/not-found.component&#x27;
-import { LoginComponent } from &#x27;../screens/login/login.component&#x27;
-import { SnifferTokenListComponent } from &#x27;../screens/sniffer-token/sniffer-token-list/sniffer-token-list.component&#x27;
-import { SnifferDataListComponent } from &#x27;../screens/sniffer-data/sniffer-data-list/sniffer-data-list.component&#x27;
-import { SnifferDataDetailComponent } from &#x27;../screens/sniffer-data/sniffer-data-detail/sniffer-data-detail.component&#x27;
-import { SniffersListComponent } from &#x27;../screens/sniffers/sniffers-list/sniffers-list.component&#x27;
+import { NotFoundComponent } from &#x27;../views/not-found/not-found.component&#x27;
+import { LoginComponent } from &#x27;../views/login/login.component&#x27;
+import { SnifferTokenListComponent } from &#x27;../views/sniffer-token/sniffer-token-list/sniffer-token-list.component&#x27;
+import { SnifferDataListComponent } from &#x27;../views/sniffer-data/sniffer-data-list/sniffer-data-list.component&#x27;
+import { SnifferDataDetailComponent } from &#x27;../views/sniffer-data/sniffer-data-detail/sniffer-data-detail.component&#x27;
+import { SniffersListComponent } from &#x27;../views/sniffers/sniffers-list/sniffers-list.component&#x27;
 import { TokensResolverService } from &#x27;../resolvers/tokens-resolver.service&#x27;
 import { LoginResolverService } from &#x27;../resolvers/login-resolver.service&#x27;
 import { SniffersResolverService } from &#x27;../resolvers/sniffers-resolver.service&#x27;
+import { SnifferDataResolverService } from &#x27;../resolvers/sniffer-data-resolver.service&#x27;
 
 
 const routes: Routes &#x3D; [
@@ -103,6 +104,7 @@ const routes: Routes &#x3D; [
   {
     path: &#x27;sniffer-data&#x27;,
     component: SnifferDataListComponent,
+    resolve: { data: SnifferDataResolverService },
     data: {
       type: &#x27;list&#x27;,
       title: &#x27;Lista Datos de Sniffer&#x27;

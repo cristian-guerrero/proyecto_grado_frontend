@@ -10,11 +10,11 @@
            [required]="true"
     >
 
-    <mat-spinner color="accent" matSuffix
+    <mat-spinner color="accent" matSuffix diameter="20"
         *ngIf="isLoadingAutocomplete"></mat-spinner>
 
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAutocomplete">
-      <mat-option *ngFor="let option of filteredLeList | async" [value]="option">
+      <mat-option *ngFor="let option of filteredLeList | async" [value]="option.value">
         {{option.label}}
       </mat-option>
     </mat-autocomplete>
@@ -28,5 +28,6 @@
 </form>
 
 
-<button mat-flat-button (click)="action()" color="primary">Guardar</button>
+<button mat-flat-button [disabled]="!form.valid"
+        (click)="action()" color="primary" >Guardar</button>
 <button mat-flat-button (click)="cancel()">Cancelar</button>

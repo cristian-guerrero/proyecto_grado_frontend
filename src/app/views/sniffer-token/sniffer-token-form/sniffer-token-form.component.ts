@@ -44,6 +44,9 @@ export class SnifferTokenFormComponent implements OnInit {
 
   action() {
 
+    if (!this.form.valid) {return}
+
+    console.log(this.form.value)
   }
 
 

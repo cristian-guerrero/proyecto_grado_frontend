@@ -62,7 +62,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/screens/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts</code>
+    <code>src/app/views/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts</code>
 </p>
 
 
@@ -174,7 +174,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/screens/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/views/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -256,7 +256,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/screens/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:20</a></div>
+                            class="link-to-prism">src/app/views/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:20</a></div>
                 </td>
             </tr>
 
@@ -295,7 +295,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">src/app/screens/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:27</a></div>
+                            class="link-to-prism">src/app/views/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:27</a></div>
                 </td>
             </tr>
 
@@ -362,7 +362,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/screens/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/views/sniffer-token/sniffer-token-list/sniffer-token-list.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -403,7 +403,9 @@ export class SnifferTokenListComponent implements OnInit {
 
   openAddDialog(type?: string) {
 
-    this.bottonSheet.open(SnifferTokenFormComponent).afterDismissed().subscribe(res &#x3D;&gt; {
+    this.bottonSheet.open(SnifferTokenFormComponent, {
+      disableClose: true
+    }).afterDismissed().subscribe(res &#x3D;&gt; {
       console.log(&#x27;sheet dismiss&#x27;)
     })
 
@@ -455,7 +457,7 @@ export class SnifferTokenListComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><p>sniffer-token-list works!</p><app-fab-button (click)="openAddDialog()" ></app-fab-button></div>'
-    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'app-accordion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppToolbarComponent', 'selector': 'app-toolbar'},{'name': 'FabButtonComponent', 'selector': 'app-fab-button'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotifierComponent', 'selector': 'app-notifier'},{'name': 'SnifferDataDetailComponent', 'selector': 'app-sniffer-data-detail'},{'name': 'SnifferDataListComponent', 'selector': 'app-sniffer-data-list'},{'name': 'SnifferFormComponent', 'selector': 'app-sniffer-form'},{'name': 'SniffersListComponent', 'selector': 'app-sniffers-list'},{'name': 'SnifferTokenFormComponent', 'selector': 'app-sniffer-token-form'},{'name': 'SnifferTokenListComponent', 'selector': 'app-sniffer-token-list'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppToolbarComponent', 'selector': 'app-toolbar'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'DetailsComponent', 'selector': 'app-details'},{'name': 'FabButtonComponent', 'selector': 'app-fab-button'},{'name': 'FilterByColumComponent', 'selector': 'app-filter-by-colum'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotifierComponent', 'selector': 'app-notifier'},{'name': 'SnifferDataDetailComponent', 'selector': 'app-sniffer-data-detail'},{'name': 'SnifferDataListComponent', 'selector': 'app-sniffer-data-list'},{'name': 'SnifferFormComponent', 'selector': 'app-sniffer-form'},{'name': 'SniffersListComponent', 'selector': 'app-sniffers-list'},{'name': 'SnifferTokenFormComponent', 'selector': 'app-sniffer-token-form'},{'name': 'SnifferTokenListComponent', 'selector': 'app-sniffer-token-list'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SnifferTokenListComponent'};
 </script>

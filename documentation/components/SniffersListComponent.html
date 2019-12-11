@@ -44,6 +44,9 @@
             <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
         </li>
         <li >
+            <a href="#readme" role="tab" id="readme-tab" data-toggle="tab" data-link="readme">README</a>
+        </li>
+        <li >
             <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
         </li>
         <li >
@@ -62,7 +65,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/screens/sniffers/sniffers-list/sniffers-list.component.ts</code>
+    <code>src/app/views/sniffers/sniffers-list/sniffers-list.component.ts</code>
 </p>
 
 
@@ -131,7 +134,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#data">data</a>
+                                <a href="#columns">columns</a>
+                            </li>
+                            <li>
+                                <a href="#query">query</a>
                             </li>
                         </ul>
                     </td>
@@ -174,7 +180,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/screens/sniffers/sniffers-list/sniffers-list.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/views/sniffers/sniffers-list/sniffers-list.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -255,8 +261,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/screens/sniffers/sniffers-list/sniffers-list.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/views/sniffers/sniffers-list/sniffers-list.component.ts:22</a></div>
                 </td>
             </tr>
 
@@ -294,8 +300,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">src/app/screens/sniffers/sniffers-list/sniffers-list.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/app/views/sniffers/sniffers-list/sniffers-list.component.ts:29</a></div>
                 </td>
             </tr>
 
@@ -352,23 +358,50 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="data"></a>
+                        <a name="columns"></a>
                         <span class="name">
                             <b>
-                            data</b>
-                            <a href="#data"><span class="icon ion-ios-link"></span></a>
+                            columns</b>
+                            <a href="#columns"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>Parse.Object[]</code>
+                            <i>Type : </i>    <code>string[]</code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/screens/sniffers/sniffers-list/sniffers-list.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/views/sniffers/sniffers-list/sniffers-list.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="query"></a>
+                        <span class="name">
+                            <b>
+                            query</b>
+                            <a href="#query"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Parse.Query</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/views/sniffers/sniffers-list/sniffers-list.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -379,9 +412,15 @@
 
 </div>
 
+    <div class="tab-pane fade " id="c-readme">
+        <p><h2 id="lista-de-sniffer">Lista de Sniffer</h2>
+<p>En esta vista se pueden encontrar una tabla con la lista de
+ Sniffer activos disponibles, adicional mente</p>
+</p>
+    </div>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnChanges, OnInit, SimpleChanges } from &#x27;@angular/core&#x27;
 import { ActivatedRoute } from &#x27;@angular/router&#x27;
 import { MatBottomSheet } from &#x27;@angular/material/bottom-sheet&#x27;
 import { SnifferFormComponent } from &#x27;../sniffer-form/sniffer-form.component&#x27;
@@ -393,7 +432,9 @@ import { SnifferFormComponent } from &#x27;../sniffer-form/sniffer-form.componen
 })
 export class SniffersListComponent implements OnInit {
 
-  data: Parse.Object []
+  query: Parse.Query
+
+  columns: string[]
 
   constructor(private route: ActivatedRoute,
               private bottonSheet: MatBottomSheet) {
@@ -401,9 +442,9 @@ export class SniffersListComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.data &#x3D; this.route.snapshot.data.data
-    console.log(this.data)
+    // console.log(this.data)
+    this.query &#x3D; this.route.snapshot.data.data
+    this.columns &#x3D; [ &#x27;ip&#x27;, &#x27;name&#x27;, &#x27;active&#x27; ]
   }
 
 
@@ -417,17 +458,20 @@ export class SniffersListComponent implements OnInit {
 
   }
 
+
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">
-&lt;p&gt;sniffers-list works!&lt;/p&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;component-container&quot;&gt;
+  &lt;p&gt;sniffers-list works!&lt;/p&gt;
 
-&lt;app-accordion&gt;&lt;/app-accordion&gt;
 
-&lt;app-fab-button (click)&#x3D;&quot;openAddDialog()&quot;&gt;&lt;/app-fab-button&gt;
+  &lt;app-data-table [query]&#x3D;&quot;query&quot; [columns]&#x3D;&quot;columns&quot;&gt;&lt;/app-data-table&gt;
+
+  &lt;app-fab-button (click)&#x3D;&quot;openAddDialog()&quot;&gt;&lt;/app-fab-button&gt;
+&lt;/div&gt;
 </code></pre>
     </div>
 
@@ -463,8 +507,8 @@ export class SniffersListComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>sniffers-list works!</p><app-accordion></app-accordion><app-fab-button (click)="openAddDialog()"></app-fab-button></div>'
-    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'app-accordion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppToolbarComponent', 'selector': 'app-toolbar'},{'name': 'FabButtonComponent', 'selector': 'app-fab-button'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotifierComponent', 'selector': 'app-notifier'},{'name': 'SnifferDataDetailComponent', 'selector': 'app-sniffer-data-detail'},{'name': 'SnifferDataListComponent', 'selector': 'app-sniffer-data-list'},{'name': 'SnifferFormComponent', 'selector': 'app-sniffer-form'},{'name': 'SniffersListComponent', 'selector': 'app-sniffers-list'},{'name': 'SnifferTokenFormComponent', 'selector': 'app-sniffer-token-form'},{'name': 'SnifferTokenListComponent', 'selector': 'app-sniffer-token-list'}];
+        var COMPONENT_TEMPLATE = '<div><div class="component-container">  <p>sniffers-list works!</p>  <app-data-table [query]="query" [columns]="columns"></app-data-table>  <app-fab-button (click)="openAddDialog()"></app-fab-button></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppToolbarComponent', 'selector': 'app-toolbar'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'DetailsComponent', 'selector': 'app-details'},{'name': 'FabButtonComponent', 'selector': 'app-fab-button'},{'name': 'FilterByColumComponent', 'selector': 'app-filter-by-colum'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotifierComponent', 'selector': 'app-notifier'},{'name': 'SnifferDataDetailComponent', 'selector': 'app-sniffer-data-detail'},{'name': 'SnifferDataListComponent', 'selector': 'app-sniffer-data-list'},{'name': 'SnifferFormComponent', 'selector': 'app-sniffer-form'},{'name': 'SniffersListComponent', 'selector': 'app-sniffers-list'},{'name': 'SnifferTokenFormComponent', 'selector': 'app-sniffer-token-form'},{'name': 'SnifferTokenListComponent', 'selector': 'app-sniffer-token-list'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SniffersListComponent'};
 </script>

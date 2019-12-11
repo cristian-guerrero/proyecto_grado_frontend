@@ -27,10 +27,12 @@ export class SnifferTokenService {
     }
     value = value.trim()
     const query = this.parse.query(SnifferClass.className)
+    query.select(SnifferClass.NAME)
     query.matches(SnifferClass.NAME, new RegExp(value), null)
 
     return this.parse.findByQuery(query).pipe(
       map(res => {
+        console.log(res)
         return res.map(x => {
           return {
             label: x.get(SnifferClass.NAME),
@@ -46,7 +48,6 @@ export class SnifferTokenService {
    */
   buildSnifferTokenForm(): FormGroup {
     return this.fb.group({
-      // sniffer y fecha autocomplete y fecha
       [ TokenClass.SNIFFER ]: [ null, [ Validators.required ] ],
       [ TokenClass.EXPIRY ]: [ null, [] ],
     })

@@ -550,7 +550,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findWithCount(query: Parse.Query, limit?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, skip?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>findWithCount(query: Parse.Query, limit?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, skip?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, withCount)</code>
                 </td>
             </tr>
 
@@ -574,6 +574,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Default value</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -587,6 +588,8 @@
                                         No
                                     </td>
 
+                                    <td>
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -599,6 +602,8 @@
                                         Yes
                                     </td>
 
+                                    <td>
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -611,6 +616,22 @@
                                         Yes
                                     </td>
 
+                                    <td>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>withCount</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>true</code>
+                                    </td>
 
                                 </tr>
                             </tbody>
@@ -651,8 +672,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="133"
-                            class="link-to-prism">src/app/services/parse.service.ts:133</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/app/services/parse.service.ts:141</a></div>
                 </td>
             </tr>
 
@@ -753,7 +774,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>query(className)</code>
+<code>query(className: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -775,12 +796,16 @@
                             <thead>
                                 <tr>
                                     <td>Name</td>
+                                    <td>Type</td>
                                     <td>Optional</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>className</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
 
                                     <td>
                                         No
@@ -794,7 +819,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Parse.Query</code>
 
                     </div>
                     <div class="io-description">
@@ -1132,7 +1157,7 @@ export class ParseService {
 
   }
 
-  query(className) {
+  query(className: string ): Parse.Query {
     return new Parse.Query(className)
   }
 
@@ -1144,11 +1169,19 @@ export class ParseService {
     }))
   }
 
-  findWithCount(query: Parse.Query, limit?: number, skip?: number): Observable&lt;DataWithCount&gt; {
-    if (limit) {query.limit(limit)}
-    if (skip) {query.skip(skip)}
-    return forkJoin([ this.count(query), this.findByQuery(query, false) ]).pipe(
+  findWithCount(query: Parse.Query, limit?: number, skip?: number, withCount &#x3D; true): Observable&lt;DataWithCount&gt; {
+
+    if (Number.isInteger(limit)) {query.limit(limit)}
+    if (Number.isInteger(skip)) {query.skip(skip)}
+
+    const observables &#x3D; [
+      withCount ? this.count(query) : of(null),
+      this.findByQuery(query, !Number.isInteger(limit))
+    ]
+
+    return forkJoin(observables).pipe(
       map(res &#x3D;&gt; ({ count: res[ 0 ], data: res[ 1 ] })),
+      // tap(res &#x3D;&gt; console.log(res, query, limit, skip)),
       catchError(err &#x3D;&gt; {
         this.handleErrors(err)
         return throwError(err)

@@ -26,7 +26,9 @@ export class SnifferTokenListComponent implements OnInit {
 
   openAddDialog(type?: string) {
 
-    this.bottonSheet.open(SnifferTokenFormComponent).afterDismissed().subscribe(res => {
+    this.bottonSheet.open(SnifferTokenFormComponent, {
+      disableClose: true
+    }).afterDismissed().subscribe(res => {
       console.log('sheet dismiss')
     })
 
