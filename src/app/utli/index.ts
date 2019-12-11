@@ -48,6 +48,15 @@ export class Consts {
       updatedAt: 'Fecha de Actualización',
       createdAt: 'Fecha de Creación',
       name: 'Nombre',
+      sniffer: 'Rastreador',
+      protocol: 'Protocolo',
+      port: 'Puerto',
+      expiry: 'Fecha Expiración',
+      hash: 'Hash',
+      username: 'Nombre de Usuario',
+      email: 'Correo Electrónico',
+      active: 'Activo'
+
     }
 
 

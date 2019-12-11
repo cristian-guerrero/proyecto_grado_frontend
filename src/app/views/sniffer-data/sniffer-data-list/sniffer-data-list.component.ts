@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-sniffer-data-list',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SnifferDataListComponent implements OnInit {
 
-  constructor() { }
+  query: Parse.Query
+
+  constructor(private route: ActivatedRoute,) { }
 
   ngOnInit() {
+    this.query = this.route.snapshot.data.data
   }
 
 }

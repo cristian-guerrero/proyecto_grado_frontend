@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router'
 import { Observable, of } from 'rxjs'
-import { delay } from 'rxjs/operators'
 import { SnifferClass } from '../models/sniffer-class'
 import { ParseService } from '../services/parse.service'
 import * as Parse from 'parse'

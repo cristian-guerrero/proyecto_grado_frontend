@@ -8,5 +8,7 @@ export enum FilterColumnType {
 
   DATE = 'Date',
   TEXT = 'String',
-  OBJECT = 'Object'
+  OBJECT = 'Object',
+  BOOLEAN = 'Boolean',
+
 }

@@ -4,6 +4,7 @@ import { SnifferClass } from '../../../models/sniffer-class'
 import { Consts } from '../../../utli'
 import { ParseService } from '../../../services/parse.service'
 import { FilterColumnType, SelectValue } from './filterByColumnModels'
+import * as Parse from 'parse'
 
 @Component({
   selector: 'app-filter-by-colum',
@@ -56,8 +57,14 @@ export class FilterByColumComponent implements OnInit {
       return
     }
 
-    console.log(this.query)
+    const { attribute, value } = this.form.value
+    console.log(this.query, attribute, value)
+
+    this._query.equalTo(attribute, value.trim())
+
+
     this.query = this._query
+
   }
 
   resetFilter() {
@@ -67,6 +74,13 @@ export class FilterByColumComponent implements OnInit {
     }, { emitEvent: false, onlySelf: true })
     // this.form.controls.value.markAsPristine()
     // this.form.controls.attribute.markAsPristine()
+
+
+    const limit = '_limit'
+    const query = new Parse.Query(this.query.className)
+    query.skip(0)
+    query.limit(this.query[ limit ])
+    this.query = query
   }
 
   getSchema() {
@@ -84,16 +98,13 @@ export class FilterByColumComponent implements OnInit {
     const s: SelectValue [] = []
     const names = Consts.COLUMNS_NAME
 
-    // console.log(Consts.COLUMNS_NAME)
     // tslint:disable-next-line:forin
     for (const x in schema) {
-
       if (!names.hasOwnProperty(x)) {
         throw new Error(` Consts.COLUMNS_NAME no puede resolver la clave ${ x } de esquema requerida`)
       }
       s.push({ label: names[ x ], value: x })
 
-      console.log({ [ x ]: schema[ x ] })
     }
 
     this.colums = s
@@ -109,6 +120,7 @@ export class FilterByColumComponent implements OnInit {
 
     const schemaType = this.schema[ attribute ].type as FilterColumnType
 
+    // console.log(schemaType)
     switch (schemaType) {
 
       case FilterColumnType.TEXT:
@@ -116,6 +128,8 @@ export class FilterByColumComponent implements OnInit {
         return FilterColumnType.TEXT
       case FilterColumnType.DATE:
         return FilterColumnType.DATE
+      case FilterColumnType.BOOLEAN:
+        return FilterColumnType.BOOLEAN
     }
 
   }

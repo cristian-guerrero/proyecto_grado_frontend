@@ -9,6 +9,7 @@ import { SniffersListComponent } from '../views/sniffers/sniffers-list/sniffers-
 import { TokensResolverService } from '../resolvers/tokens-resolver.service'
 import { LoginResolverService } from '../resolvers/login-resolver.service'
 import { SniffersResolverService } from '../resolvers/sniffers-resolver.service'
+import { SnifferDataResolverService } from '../resolvers/sniffer-data-resolver.service'
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   {
     path: 'sniffer-data',
     component: SnifferDataListComponent,
+    resolve: { data: SnifferDataResolverService },
     data: {
       type: 'list',
       title: 'Lista Datos de Sniffer'

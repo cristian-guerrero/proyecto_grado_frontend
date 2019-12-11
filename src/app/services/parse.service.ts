@@ -120,17 +120,17 @@ export class ParseService {
 
   findWithCount(query: Parse.Query, limit?: number, skip?: number, withCount = true): Observable<DataWithCount> {
 
-    if (limit) {query.limit(limit)}
-    if (skip) {query.skip(skip)}
+    if (Number.isInteger(limit)) {query.limit(limit)}
+    if (Number.isInteger(skip)) {query.skip(skip)}
 
     const observables = [
       withCount ? this.count(query) : of(null),
       this.findByQuery(query, !Number.isInteger(limit))
     ]
 
-
     return forkJoin(observables).pipe(
       map(res => ({ count: res[ 0 ], data: res[ 1 ] })),
+      // tap(res => console.log(res, query, limit, skip)),
       catchError(err => {
         this.handleErrors(err)
         return throwError(err)

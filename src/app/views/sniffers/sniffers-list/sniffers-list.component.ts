@@ -10,7 +10,6 @@ import { SnifferFormComponent } from '../sniffer-form/sniffer-form.component'
 })
 export class SniffersListComponent implements OnInit {
 
-  data: Parse.Object []
   query: Parse.Query
 
   columns: string[]
@@ -21,8 +20,7 @@ export class SniffersListComponent implements OnInit {
   }
 
   ngOnInit() {
-     console.log(this.data)
-    // this.data = this.route.snapshot.data.data
+    // console.log(this.data)
     this.query = this.route.snapshot.data.data
     this.columns = [ 'ip', 'name', 'active' ]
   }
@@ -36,10 +34,6 @@ export class SniffersListComponent implements OnInit {
       console.log('sheet dismiss')
     })
 
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // todo ver cuando cambie la query
   }
 
 
