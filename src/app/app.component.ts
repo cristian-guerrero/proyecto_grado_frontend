@@ -11,6 +11,8 @@ import {
 import { Title } from '@angular/platform-browser'
 import { SharedService } from './services/shared.service'
 
+import 'reflect-metadata'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -83,3 +85,45 @@ export class AppComponent {
   }
 
 }
+
+// ----- test decorator ------
+
+/*
+function logType(target: any, key: string) {
+
+  let t = Reflect.getMetadata('design:type', target, key)
+
+  // JSON.stringify(target, null, 4)
+  console.log(`${ key } type: ${ t.name } `)
+
+
+}
+
+
+function SetName(data: any) {
+
+  console.log(data)
+  return (target: any, key: string) => {
+
+    console.log(target, key)
+  }
+}
+
+
+class Demo {
+
+  @Reflect.metadata('design:type', 'un nuevo valor ')
+  @SetName({ nombre: 'un nombre' })
+  @logType
+  private attribute: number
+
+  action() {
+    // return this.name
+  }
+}
+
+
+const d = new Demo()
+
+console.log(d)
+*/

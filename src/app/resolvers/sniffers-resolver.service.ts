@@ -16,7 +16,16 @@ export class SniffersResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log(route.data)
     // return this.findData()
-    return this.query()
+    return of({
+      query: this.query(),
+      only: [
+        SnifferClass.OBJECT_ID,
+        SnifferClass.IP,
+        SnifferClass.NAME,
+      ],
+     //  discard: [ SnifferClass.IP ]
+
+    })
   }
 
   findData(): Observable<Parse.Object[]> {
@@ -25,7 +34,7 @@ export class SniffersResolverService implements Resolve<any> {
     return this.parse.findByQuery(q)
   }
 
-  query(): Observable<Parse.Query> {
-    return of(new Parse.Query(SnifferClass.className))
+  query(): Parse.Query {
+    return new Parse.Query(SnifferClass.className)
   }
 }

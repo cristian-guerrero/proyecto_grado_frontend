@@ -12,3 +12,10 @@ Corre el comando `ng serve` para arrancar un servidor de desarrollo . Navega a `
 ## Compilación
 
 Corre el comando `ng build` para compilar el proyecto. Los artefactos de la conpilacion se almacenaran en el directorio `dist/` . Utilize la bandera `--prod` para compilar para producción.
+
+## Documentación
+Para la documentación se utilizo la libreria [Compodoc](https://compodoc.app/).
+
+La documentación se genera utilizando el comando `yarn doc`, 
+despues de generada se pueden econtrar en el folder `documentation` en el 
+directorio raiz de la aplicación.

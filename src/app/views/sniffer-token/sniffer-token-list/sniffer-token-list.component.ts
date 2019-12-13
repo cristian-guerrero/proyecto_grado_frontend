@@ -10,7 +10,9 @@ import { SnifferTokenFormComponent } from '../sniffer-token-form/sniffer-token-f
 })
 export class SnifferTokenListComponent implements OnInit {
 
-  data
+  query: Parse.Query
+  only: string []
+  discard: string []
 
   constructor(private route: ActivatedRoute,
               private bottonSheet: MatBottomSheet) {
@@ -18,9 +20,11 @@ export class SnifferTokenListComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.data = this.route.snapshot.data.data
-    console.log(this.data)
+    // console.log(this.data)
+    const { query, only, discard } = this.route.snapshot.data.data
+    this.query = query
+    this.only = only
+    this.discard = discard
   }
 
 

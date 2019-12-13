@@ -16,6 +16,12 @@ import { fromMatPaginator, fromMatSort, paginateRows, sortRows } from '../data-u
 import { debounceTime, flatMap, map } from 'rxjs/operators'
 import { MatTableDataSource } from '@angular/material/table'
 import { ParseService } from '../../../services/parse.service'
+import * as Parse from 'parse'
+import { Consts } from '../../../utli'
+import { DataTableService } from '../data-table.service'
+import { SelectValue } from '../filter-by-colum/filterByColumnModels'
+import { strictEqual } from 'assert'
+import { COLUMNS_NAME } from '../util'
 
 @Component({
   selector: 'app-data-table',
@@ -25,13 +31,17 @@ import { ParseService } from '../../../services/parse.service'
 export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
 
   data: Parse.Object[]
+  schema: any
 
-  @Input()
   columns: string[]
+  columnsNames: SelectValue []
+
 
   @Input()
-  metadata: any
+  only: string[]
 
+  @Input()
+  discard: string []
 
   @Input()
   get query(): Parse.Query {
@@ -43,9 +53,11 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     this._query = query
 
     this.paginator.pageIndex = 0
+    // todo modificar este llamdo despues para que no se llame 3 veces al iniciar el componente
     this.findByQuery(query, true)
 
     this.queryChange.emit(this._query)
+    this.getSchema()
   }
 
   @Output() queryChange: EventEmitter<Parse.Query> = new EventEmitter()
@@ -61,19 +73,19 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    */
   pageSizeOptions = [ 5, 15, 25 ]
   pageSize = 5
-  totalRows: number
+  totalRows = 0
   pageEvent: PageEvent
-  pageIndex: number
+  pageIndex = 0
 
   subscription: Subscription
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
-  constructor(private parse: ParseService) {}
+  constructor(private parse: ParseService,
+              private service: DataTableService) {}
 
   ngOnInit() {
     this.findByQuery(this._query, true)
-    this.columns = [ ...this.columns, 'actions' ]
 
   }
 
@@ -104,9 +116,10 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     this.findByQuery(this._query)
   }
 
+  // todo pasar esta funcionalidad al servicio
   findData([ skip, limit ], query, withCount) {
     this.subscription = this.parse.findWithCount(query, limit, skip, withCount).subscribe(res => {
-      // console.log(res, limit, skip)
+      console.log(res, limit, skip)
       if (res.count) {
         this.totalRows = res.count
       }
@@ -131,6 +144,66 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+
+  getSchema() {
+    this.service.getSchema(this.query).subscribe(res => {
+      // console.log(res)
+      this.schema = res
+      this.setColumns(res)
+    })
+  }
+
+  setColumns(schema) {
+    if (!schema) {return }
+
+    const cloneSchema = { ...schema }
+
+    const tempSchema = {}
+    const colums: string [] = []
+    const columnsNames: SelectValue [] = []
+    const names = COLUMNS_NAME
+
+
+    if (this.discard) {
+      for (const n of this.discard) {
+        if (cloneSchema.hasOwnProperty(n)) {
+          delete cloneSchema[ n ]
+        }
+      }
+    }
+
+    if (this.only) {
+      for (const n of this.only) {
+        if (cloneSchema.hasOwnProperty(n)) {
+          tempSchema[ n ] = schema[ n ]
+        }
+      }
+    }
+
+
+    // tslint:disable-next-line:forin
+    for (const x in tempSchema) {
+      if (!names.hasOwnProperty(x)) {
+        throw new Error(` En COLUMNS_NAME no existe la clave ${ x }`)
+      }
+
+      colums.push(x)
+      columnsNames.push({ label: names[ x ], value: x })
+    }
+    colums.push('actions')
+
+    columnsNames.push({ label: 'Acciones', value: 'actions' })
+
+    this.columns = colums
+    this.columnsNames = columnsNames
+  }
+
+
+  getColumnName(value: string) {
+
+    return this.columnsNames.find(x => x.value === value).label
+
+  }
 
 }
 

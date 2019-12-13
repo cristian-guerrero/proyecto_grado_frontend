@@ -38,30 +38,6 @@ export class Consts {
     return acl
   }
 
-  public static get COLUMNS_NAME() {
-
-    return {
-
-      objectId: 'Id',
-      ip: 'IP',
-      config: 'Configuración',
-      updatedAt: 'Fecha de Actualización',
-      createdAt: 'Fecha de Creación',
-      name: 'Nombre',
-      sniffer: 'Rastreador',
-      protocol: 'Protocolo',
-      port: 'Puerto',
-      expiry: 'Fecha Expiración',
-      hash: 'Hash',
-      username: 'Nombre de Usuario',
-      email: 'Correo Electrónico',
-      active: 'Activo'
-
-    }
-
-
-  }
-
   public static readonly CLOUD_FUNCTION = {
     FILTER_COLUMNS: '_filter_columns'
   }

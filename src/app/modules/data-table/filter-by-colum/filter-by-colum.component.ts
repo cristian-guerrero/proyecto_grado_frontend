@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { SnifferClass } from '../../../models/sniffer-class'
 import { Consts } from '../../../utli'
 import { ParseService } from '../../../services/parse.service'
 import { FilterColumnType, SelectValue } from './filterByColumnModels'
 import * as Parse from 'parse'
+import { COLUMNS_NAME } from '../util'
 
 @Component({
   selector: 'app-filter-by-colum',
   templateUrl: './filter-by-colum.component.html',
   styleUrls: [ './filter-by-colum.component.scss' ]
 })
-export class FilterByColumComponent implements OnInit {
+export class FilterByColumComponent implements OnInit, OnChanges {
 
   @Input()
   get query(): Parse.Query {
@@ -22,8 +23,11 @@ export class FilterByColumComponent implements OnInit {
     // console.log(query)
     this._query = query
     this.queryChange.emit(this._query)
-    this.getSchema()
+    // this.getSchema()
   }
+
+  @Input()
+  schema: any
 
   @Output() queryChange: EventEmitter<Parse.Query> = new EventEmitter()
 
@@ -33,7 +37,6 @@ export class FilterByColumComponent implements OnInit {
   form: FormGroup
 
   colums: SelectValue []
-  schema: any
 
   columnType = FilterColumnType
 
@@ -41,7 +44,14 @@ export class FilterByColumComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.buildForm(this.fb)
+    this.setColumns(this.schema)
 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    console.log(changes)
+    this.setColumns(this.schema)
   }
 
   buildForm(fb: FormBuilder): FormGroup {
@@ -83,20 +93,11 @@ export class FilterByColumComponent implements OnInit {
     this.query = query
   }
 
-  getSchema() {
-
-    this.parse.runCloudFunction(Consts.CLOUD_FUNCTION.FILTER_COLUMNS, { className: this.query.className }).subscribe(res => {
-      // console.log(res)
-      this.schema = res
-
-      this.setColumns(res)
-
-    })
-  }
 
   setColumns(schema) {
+    if (!schema) {return }
     const s: SelectValue [] = []
-    const names = Consts.COLUMNS_NAME
+    const names = COLUMNS_NAME
 
     // tslint:disable-next-line:forin
     for (const x in schema) {

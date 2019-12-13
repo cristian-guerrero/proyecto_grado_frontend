@@ -1,7 +1,8 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { SnifferFormComponent } from '../sniffer-form/sniffer-form.component'
+import { SnifferClass } from '../../../models/sniffer-class'
 
 @Component({
   selector: 'app-sniffers-list',
@@ -11,8 +12,8 @@ import { SnifferFormComponent } from '../sniffer-form/sniffer-form.component'
 export class SniffersListComponent implements OnInit {
 
   query: Parse.Query
-
-  columns: string[]
+  only: string []
+  discard: string []
 
   constructor(private route: ActivatedRoute,
               private bottonSheet: MatBottomSheet) {
@@ -21,8 +22,10 @@ export class SniffersListComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.data)
-    this.query = this.route.snapshot.data.data
-    this.columns = [ 'ip', 'name', 'active' ]
+    const { query, only, discard } = this.route.snapshot.data.data
+    this.query = query
+    this.only = only
+    this.discard = discard
   }
 
 
