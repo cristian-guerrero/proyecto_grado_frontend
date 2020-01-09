@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FlexLayoutModule } from '@angular/flex-layout'
+import { ExtendedModule, FlexLayoutModule } from '@angular/flex-layout'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
@@ -29,6 +29,7 @@ const providers = [
 
 const modules = [
   FlexLayoutModule,
+  ExtendedModule,
   RouterModule,
   DataTableModule,
 ]

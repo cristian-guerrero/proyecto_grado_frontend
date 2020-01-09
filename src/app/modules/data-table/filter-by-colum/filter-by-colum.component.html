@@ -1,7 +1,6 @@
-<div fxFlex="50%">
 
 
-  <form [formGroup]="form" fxLayout="row" fxLayoutGap="16px">
+  <div [formGroup]="form" fxLayout="row wrap" fxLayoutGap.gt-sm="16px">
 
     <mat-form-field appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
       <mat-label>Columna</mat-label>
@@ -54,22 +53,23 @@
       </mat-form-field>
     </ng-container>
 
-    <div fxFlex="100%" fxFlex.gt-sm="25%">
+    <div fxFlex="100%" fxFlex.gt-sm="20%"  ngClass.lt-md="button-margin" >
       <button mat-flat-button color="primary"
               [disabled]="!form.valid"
               (click)="buildQuery()"
-              class="big-button">Filtrar
+              class="big-button button-style">Filtrar
       </button>
 
     </div>
-    <div fxFlex="100%" fxFlex.gt-sm="25%">
+    <div fxFlex="100%" fxFlex.gt-sm="20%"  ngClass.lt-md="button-margin">
 
       <button mat-flat-button color="warn"
               (click)="resetFilter()"
-              class="big-button">Reiniciar filtros
+              class="big-button button-style">Reiniciar filtros
       </button>
     </div>
-  </form>
+
+  </div>
 
 
-</div>
+

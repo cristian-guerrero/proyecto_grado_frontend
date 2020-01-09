@@ -14,7 +14,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSortModule } from '@angular/material/sort'
 import { FilterByColumComponent } from './filter-by-colum/filter-by-colum.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { FlexModule } from '@angular/flex-layout'
+import { ExtendedModule, FlexLayoutModule, FlexModule } from '@angular/flex-layout'
 import { MatSelectModule } from '@angular/material/select'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
@@ -67,7 +67,8 @@ const ngForms = [ FormsModule, ReactiveFormsModule ]
     CommonModule,
     ...materialModules,
     ...ngForms,
-    FlexModule,
+    FlexLayoutModule,
+    ExtendedModule,
 
   ],
   exports: [
