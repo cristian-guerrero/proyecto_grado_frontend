@@ -25,13 +25,17 @@ export class SnifferFormComponent implements OnInit {
               private sharedService: SharedService) {
 
     if (this.data.object) {
-      this.prepareData(this.data.object)
+      //  this.prepareData(this.data.object)
+      //  this.patchValue(this.data.object)
     }
 
   }
 
   ngOnInit() {
     this.form = this.buildForm(this.fb)
+    if (this.data && this.data.object) {
+      this.patchValue(this.data.object, this.form)
+    }
   }
 
   cancel() {
@@ -65,6 +69,13 @@ export class SnifferFormComponent implements OnInit {
   update() {
 
     const data = this.sharedService.prepareObjectToUpdate(this.form)
+    if (data[ SnifferClass.CONFIG ]) {
+      data[ SnifferClass.CONFIG ] = JSON.parse(data[ SnifferClass.CONFIG ])
+    }
+    this.parse.updateObject(this.data.object, data).subscribe(res => {
+      console.log(res)
+      this.bottomSheetRef.dismiss(res)
+    })
   }
 
 
@@ -82,8 +93,14 @@ export class SnifferFormComponent implements OnInit {
 
   }
 
-  patchValue() {
+  patchValue(object: Parse.Object, form: FormGroup) {
 
+    form.patchValue({
+      [ SnifferClass.IP ]: object.get(SnifferClass.IP),
+      [ SnifferClass.NAME ]: object.get(SnifferClass.NAME),
+      [ SnifferClass.CONFIG ]: object.has(SnifferClass.CONFIG) ? JSON.stringify(object.get(SnifferClass.CONFIG)) : '{}',
+
+    })
   }
 
   fechData() {

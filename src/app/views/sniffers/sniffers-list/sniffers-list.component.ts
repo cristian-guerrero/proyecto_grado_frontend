@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { SnifferFormComponent } from '../sniffer-form/sniffer-form.component'
 import { SnifferClass } from '../../../models/sniffer-class'
+import { TableActionId, TableCallbackContent } from '../../../modules/data-table/util'
 
 @Component({
   selector: 'app-sniffers-list',
@@ -39,5 +40,17 @@ export class SniffersListComponent implements OnInit {
 
   }
 
+  /**
+   * Recibe el evento de la tabla
+   * Solo se esta utilizando el evento de editar
+   * Al editar parse actualiza el objeto porque esta por referencia (por lo tanto la tabla se actualiza)
+   * @param event
+   */
+  actionCallback(event: TableCallbackContent) {
+
+    if (event.id === TableActionId.EDIT) {
+      this.openAddDialog(event.object)
+    }
+  }
 
 }

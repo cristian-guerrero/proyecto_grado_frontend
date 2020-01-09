@@ -1,7 +1,9 @@
 <div class="component-container">
 
 
-  <app-data-table [query]="query" [only]="only"  [discard]="discard"></app-data-table>
+  <app-data-table [query]="query" [only]="only"
+                  (actionCallback)="actionCallback($event)"
+                  [discard]="discard"></app-data-table>
 
   <app-fab-button (click)="openAddDialog()"></app-fab-button>
 </div>

@@ -20,7 +20,7 @@ import * as Parse from 'parse'
 import { Consts } from '../../../utli'
 import { DataTableService } from '../data-table.service'
 import { SelectValue } from '../filter-by-colum/filterByColumnModels'
-import { ActionCallbackContent, COLUMNS_NAME, TABLE_ACTIONS } from '../util'
+import { TableCallbackContent, COLUMNS_NAME, TABLE_ACTIONS, TableActionId } from '../util'
 
 
 @Component({
@@ -68,7 +68,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * Emisor de eventos para cuando se presione un boton de acción de un registro
    */
-  @Output() actionCallback: EventEmitter<ActionCallbackContent> = new EventEmitter()
+  @Output() actionCallback: EventEmitter<TableCallbackContent> = new EventEmitter()
 
   /**
    * lista de botones de acción posibles para cada registro
@@ -230,15 +230,14 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    * @param object
    * @param id
    */
-  buttonActionCallback(object: Parse.Object, id: number) {
+  buttonActionCallback(object: Parse.Object, id: TableActionId) {
 
-    console.log(object, id)
 
-    this.actionCallback.emit({ id, object })
+    this.actionCallback.emit(new TableCallbackContent( id, object ) )
 
-    if (id === 1) {
+    if (id === TableActionId.DETAILS) {
       this.openDetailsModal(object)
-    } else if (id === 3) {
+    } else if (id === TableActionId.DELETE) {
       this.openDeleteConfirmation(object)
     }
   }

@@ -1,4 +1,5 @@
 import { ThemePalette } from '@angular/material/core'
+import Table = WebAssembly.Table
 
 export const COLUMNS_NAME = {
 
@@ -22,18 +23,25 @@ export const COLUMNS_NAME = {
 }
 
 
+export  enum TableActionId {
+  DETAILS,
+  EDIT,
+  DELETE
+}
+
+
 export const TABLE_ACTIONS: TableActionsModel [] = [
   {
-    id: 1,
+    id: TableActionId.DETAILS,
     color: 'accent', tooltip: 'Detalles', active: true, icon: 'info',
   },
   {
-    id: 2,
+    id: TableActionId.EDIT,
     color: 'primary', tooltip: 'Editar', active: true, icon: 'edit',
   },
 
   {
-    id: 3,
+    id: TableActionId.DELETE,
     color: 'warn', tooltip: 'Eliminar', active: true, icon: 'delete',
   },
 
@@ -43,7 +51,7 @@ export const TABLE_ACTIONS: TableActionsModel [] = [
 
 
 export class TableActionsModel {
-  id: number
+  id: TableActionId
   color: ThemePalette
   tooltip: string
   active: boolean
@@ -51,7 +59,13 @@ export class TableActionsModel {
 
 }
 
-export class ActionCallbackContent {
-  id: number
+export class TableCallbackContent {
+  id: TableActionId
   object: Parse.Object
+
+
+  constructor(id: TableActionId, object: Parse.Object) {
+    this.id = id
+    this.object = object
+  }
 }
