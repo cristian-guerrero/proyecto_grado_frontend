@@ -280,8 +280,14 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    * @param object
    */
   openDeleteConfirmation(object: Parse.Object) {
-    this.service.openConfirmDeleteDialog().subscribe(res => {
-      console.log(res)
+    this.service.openConfirmDeleteDialog(object, this.data).subscribe(res => {
+      if (res) {
+        console.log(this.totalRows)
+        this.totalRows -= 1
+        this.data = res
+
+        this.dataSource = new MatTableDataSource<Parse.Object>(res)
+      }
     })
   }
 

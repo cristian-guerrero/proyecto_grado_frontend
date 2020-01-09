@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
 import { Consts } from '../../utli'
 import { ParseService } from '../../services/parse.service'
-import { Observable } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import * as Parse from 'parse'
 import * as moment from 'moment'
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { SnifferTokenFormComponent } from '../../views/sniffer-token/sniffer-token-form/sniffer-token-form.component'
 import { DetailsComponent } from './details/details.component'
-import { mergeMap } from 'rxjs/operators'
+import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
 
 @Injectable({
@@ -74,7 +74,8 @@ export class DataTableService {
     return this.trimString(data, 20)
   }
 
-r
+  r
+
   /**
    * convierte un objeto dado a string y corta el resultado en el tamaño dado
    * @param str
@@ -102,12 +103,26 @@ r
     )
   }
 
-  openConfirmDeleteDialog(): Observable<any> {
+  openConfirmDeleteDialog(object: Parse.Object, data: Parse.Object[]): Observable<Parse.Object[]> {
     return this.bottonSheet.open(ConfirmDialogComponent, {
 
       disableClose: false,
       data: '¿Desea eliminar el registro?'
-    }).afterDismissed()
+    }).afterDismissed().pipe(
+      mergeMap(res => {
+        if (res) {
+          return this.deleteRow(object)
+        }
+        return of(undefined)
+      }),
+      map(res => {
+        if (res) {
+          const temp = data.filter(x => x.id !== object.id)
+          return temp
+        }
+        return undefined
+      })
+    )
 
   }
 }

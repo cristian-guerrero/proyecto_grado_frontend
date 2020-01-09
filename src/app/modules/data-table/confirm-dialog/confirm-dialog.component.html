@@ -1,1 +1,15 @@
-<h3>{{title}}</h3>
+<div fxLayout="column" class="container" fxLayoutAlign="space-between">
+
+  <div>
+    <h3>{{title}}</h3>
+  </div>
+  <div class="buttons-container" fxLayout="row"
+       fxLayoutGap="24px" fxLayoutAlign="center">
+    <div>
+      <button mat-flat-button color="warn" class="big-button" (click)="dismiss(true)">Aceptar</button>
+    </div>
+    <div>
+      <button mat-flat-button class="big-button" (click)="dismiss(false)">Cancelar</button>
+    </div>
+  </div>
+</div>
