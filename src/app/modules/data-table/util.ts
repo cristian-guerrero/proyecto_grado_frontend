@@ -1,3 +1,5 @@
+import { ThemePalette } from '@angular/material/core'
+
 export const COLUMNS_NAME = {
 
 
@@ -17,4 +19,39 @@ export const COLUMNS_NAME = {
   active: 'Activo',
   createdBy: 'Creado por'
 
+}
+
+
+export const TABLE_ACTIONS: TableActionsModel [] = [
+  {
+    id: 1,
+    color: 'accent', tooltip: 'Detalles', active: true, icon: 'info',
+  },
+  {
+    id: 2,
+    color: 'primary', tooltip: 'Editar', active: true, icon: 'edit',
+  },
+
+  {
+    id: 3,
+    color: 'warn', tooltip: 'Eliminar', active: true, icon: 'delete',
+  },
+
+
+]
+
+
+
+export class TableActionsModel {
+  id: number
+  color: ThemePalette
+  tooltip: string
+  active: boolean
+  icon: string
+
+}
+
+export class ActionCallbackContent {
+  id: number
+  object: Parse.Object
 }

@@ -24,6 +24,8 @@ export class TokensResolverService implements Resolve<any> {
         TokenClass.OBJECT_ID,
         TokenClass.EXPIRY,
         TokenClass.CREATED_AT,
+        TokenClass.SNIFFER,
+        TokenClass.HASH
       ],
       //  discard: [ SnifferClass.IP ]
 

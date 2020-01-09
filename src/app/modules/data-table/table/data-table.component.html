@@ -1,6 +1,4 @@
-<p>table works!</p>
-
-<app-filter-by-colum [(query)]="query" [schema]="schema" ></app-filter-by-colum>
+<app-filter-by-colum [(query)]="query" [schema]="schema"></app-filter-by-colum>
 
 <mat-paginator
     (page)="onChangePage($event)"
@@ -21,7 +19,15 @@
 
     <ng-container [matColumnDef]="c" *ngFor="let c of columns">
       <th mat-header-cell *matHeaderCellDef>{{getColumnName(c)}}</th>
-      <td mat-cell *matCellDef="let element"> {{element.attributes[c]}} </td>
+
+      <td mat-cell *matCellDef="let element">
+
+        <ng-container [ngTemplateOutlet]="c != 'actions'? cellContent: cellButtons"
+        [ngTemplateOutletContext]="{column:c,element:element}"></ng-container>
+
+      </td>
+
+
     </ng-container>
 
 
@@ -29,3 +35,22 @@
 
 </div>
 
+<!-- plantillas para las celdas de la tabla -->
+<ng-template let-c="column" let-element="element" #cellContent>
+  {{pipeData(element, c)}}
+</ng-template>
+
+
+<ng-template let-c="column" let-element="element" #cellButtons>
+
+  <ng-container *ngFor="let  b of actionButtons">
+    <button *ngIf="b.active"
+            tabindex="-1"
+            [matTooltip]="b.tooltip"
+            mat-icon-button
+            [color]="b.color"
+            (click)="buttonActionCallback(element, b.id)">
+      <mat-icon>{{b.icon}}</mat-icon>
+    </button>
+  </ng-container>
+</ng-template>

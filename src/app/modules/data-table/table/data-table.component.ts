@@ -20,8 +20,8 @@ import * as Parse from 'parse'
 import { Consts } from '../../../utli'
 import { DataTableService } from '../data-table.service'
 import { SelectValue } from '../filter-by-colum/filterByColumnModels'
-import { strictEqual } from 'assert'
-import { COLUMNS_NAME } from '../util'
+import { ActionCallbackContent, COLUMNS_NAME, TABLE_ACTIONS } from '../util'
+
 
 @Component({
   selector: 'app-data-table',
@@ -60,7 +60,21 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     this.getSchema()
   }
 
+  /**
+   * Emisor de evento para cuando cambie la parse query
+   */
   @Output() queryChange: EventEmitter<Parse.Query> = new EventEmitter()
+
+  /**
+   * Emisor de eventos para cuando se presione un boton de acción de un registro
+   */
+  @Output() actionCallback: EventEmitter<ActionCallbackContent> = new EventEmitter()
+
+  /**
+   * lista de botones de acción posibles para cada registro
+   */
+  actionButtons = TABLE_ACTIONS
+  @Input() hideActionButtons: number []
 
   // tslint:disable-next-line:variable-name
   _query: Parse.Query
@@ -86,6 +100,8 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this.findByQuery(this._query, true)
+    this.hiddeActionButton()
+
 
   }
 
@@ -199,11 +215,88 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
 
+  /**
+   * Retorna el nombre de la columna pasandole el id
+   * @param value
+   */
   getColumnName(value: string) {
 
     return this.columnsNames.find(x => x.value === value).label
 
   }
 
+  /**
+   * Callback para los botones de acciones de cada una de los registros de la tabla
+   * @param object
+   * @param id
+   */
+  buttonActionCallback(object: Parse.Object, id: number) {
+
+    console.log(object, id)
+
+    this.actionCallback.emit({ id, object })
+
+    if (id === 1) {
+      this.openDetailsModal(object)
+    } else if (id === 3) {
+      this.openDeleteConfirmation(object)
+    }
+  }
+
+  /**
+   * Oculta los botones de accion que no se deben mostrar en la tabla
+   */
+  hiddeActionButton() {
+    if (!this.hideActionButtons) {return }
+    const temp = [ ...this.actionButtons ]
+    for (const x of this.hideActionButtons) {
+
+      for (const y of temp) {
+        console.log(y)
+        if (x === y.id) {
+          y.active = false
+        }
+      }
+    }
+
+    this.actionButtons = temp
+
+
+  }
+
+  /**
+   * Metodo para abrir el modal donde se mostraran los detalles del objeto
+   * @param object
+   */
+  openDetailsModal(object: Parse.Object) {
+
+    this.service.openDetailsModal(object).subscribe(res => {
+      console.log(res)
+    })
+  }
+
+  /**
+   * modal de confirmación antes de eliminar un objeto
+   * @param object
+   */
+  openDeleteConfirmation(object: Parse.Object) {
+    this.service.openConfirmDeleteDialog().subscribe(res => {
+      console.log(res)
+    })
+  }
+
+  /**
+
+   * @param object
+   * @param key
+   */
+  pipeData(object: Parse.Object, key: string) {
+
+    return this.service.pipeData(object, key)
+
+  }
+
+
 }
+
 

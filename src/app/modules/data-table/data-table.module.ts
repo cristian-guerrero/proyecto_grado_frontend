@@ -21,6 +21,8 @@ import { MatNativeDateModule } from '@angular/material/core'
 
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core'
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -50,11 +52,17 @@ const materialModules = [
   MatSelectModule,
   MatNativeDateModule,
   MatDatepickerModule,
+  MatTooltipModule,
 ]
 const ngForms = [ FormsModule, ReactiveFormsModule ]
 
 @NgModule({
-  declarations: [ DetailsComponent, DataTableComponent, FilterByColumComponent ],
+  declarations: [
+    DetailsComponent,
+    DataTableComponent,
+    FilterByColumComponent,
+    ConfirmDialogComponent
+  ],
   imports: [
     CommonModule,
     ...materialModules,
@@ -70,10 +78,14 @@ const ngForms = [ FormsModule, ReactiveFormsModule ]
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+      deps: [ MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS ]
     },
 
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
+  entryComponents: [
+    DetailsComponent,
+    ConfirmDialogComponent
   ]
 })
 export class DataTableModule {}

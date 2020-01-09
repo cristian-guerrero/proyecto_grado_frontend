@@ -42,4 +42,13 @@ export class Consts {
     FILTER_COLUMNS: '_filter_columns'
   }
 
+
+  public static get PRIVATE_ACL() {
+    const acl = new Parse.ACL()
+    acl.setPublicWriteAccess(false)
+    acl.setPublicReadAccess(false)
+    return acl
+  }
+
+
 }
