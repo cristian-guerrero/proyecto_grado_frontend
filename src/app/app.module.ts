@@ -14,7 +14,6 @@ import { SnifferDataDetailComponent } from './views/sniffer-data/sniffer-data-de
 import { SniffersListComponent } from './views/sniffers/sniffers-list/sniffers-list.component'
 import { SnifferFormComponent } from './views/sniffers/sniffer-form/sniffer-form.component'
 import { FabButtonComponent } from './components/fab-button/fab-button.component'
-import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 @NgModule({
   declarations: [
@@ -34,7 +33,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
-    MatAutocompleteModule
+
   ],
   providers: [],
   entryComponents: [

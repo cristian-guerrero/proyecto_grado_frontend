@@ -19,6 +19,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { DataTableModule } from './data-table/data-table.module'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 const ngForms = [ FormsModule, ReactiveFormsModule ]
 
@@ -46,6 +48,8 @@ const materialModules = [
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatBottomSheetModule,
+  MatDatepickerModule,
+  MatAutocompleteModule,
 
 ]
 

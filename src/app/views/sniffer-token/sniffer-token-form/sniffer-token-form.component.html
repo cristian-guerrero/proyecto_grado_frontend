@@ -1,7 +1,6 @@
-<p>sniffer-token-form works!</p>
 
 
-<form [formGroup]="form">
+<div [formGroup]="form">
 
   <mat-form-field style="width: 100%" appearance="outline">
     <mat-label>Sniffer</mat-label>
@@ -14,7 +13,7 @@
         *ngIf="isLoadingAutocomplete"></mat-spinner>
 
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAutocomplete">
-      <mat-option *ngFor="let option of filteredLeList | async" [value]="option.value">
+      <mat-option *ngFor="let option of filteredLeList | async" [value]="option">
         {{option.label}}
       </mat-option>
     </mat-autocomplete>
@@ -22,10 +21,22 @@
     <mat-error *ngIf="form.get(formField.SNIFFER).hasError('required')">
       El sniffer es requerido
     </mat-error>
+
+    <mat-error *ngIf="form.get(formField.SNIFFER).hasError('autocompleteValueError')">
+      Debe seleccionar un elemento de la lista
+    </mat-error>
+
+
   </mat-form-field>
 
+  <mat-form-field appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
+    <mat-label>Fecha de busqueda</mat-label>
+    <input matInput [matDatepicker]="picker" [formControlName]="formField.EXPIRY">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
-</form>
+</div>
 
 
 <button mat-flat-button [disabled]="!form.valid"

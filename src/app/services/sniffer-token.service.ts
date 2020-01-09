@@ -6,6 +6,7 @@ import { debounceTime, map, mergeMap, tap } from 'rxjs/operators'
 import { ParseService } from './parse.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { TokenClass } from '../models/token-class'
+import { autocompleteValueModelValidator } from '../utli/validators/autocomplete-value-model.validator'
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class SnifferTokenService {
    */
   filterApplicationListCallback(value: string): Observable<SelectValueModel[]> {
 
+    // console.log(value)
     if (!value || value === '') {
       return of(null)
     }
@@ -32,11 +34,11 @@ export class SnifferTokenService {
 
     return this.parse.findByQuery(query).pipe(
       map(res => {
-        console.log(res)
+        // console.log(res)
         return res.map(x => {
           return {
             label: x.get(SnifferClass.NAME),
-            value: x.get(SnifferClass.OBJECT_ID)
+            value: x
           }
         })
       })
@@ -48,7 +50,7 @@ export class SnifferTokenService {
    */
   buildSnifferTokenForm(): FormGroup {
     return this.fb.group({
-      [ TokenClass.SNIFFER ]: [ null, [ Validators.required ] ],
+      [ TokenClass.SNIFFER ]: [ null, [ Validators.required, autocompleteValueModelValidator ] ],
       [ TokenClass.EXPIRY ]: [ null, [] ],
     })
   }

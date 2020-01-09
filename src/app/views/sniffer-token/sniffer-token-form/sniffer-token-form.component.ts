@@ -27,8 +27,7 @@ export class SnifferTokenFormComponent implements OnInit {
 
 
   constructor(private service: SnifferTokenService,
-              private bottomSheetRef: MatBottomSheetRef<SnifferTokenFormComponent>,
-              private fb: FormBuilder) {
+              private bottomSheetRef: MatBottomSheetRef<SnifferTokenFormComponent>) {
 
   }
 
@@ -70,7 +69,7 @@ export class SnifferTokenFormComponent implements OnInit {
    *
    */
   filterApplicationList(control: FormControl): Observable<SelectValueModel[]> {
-    console.log(control)
+    // console.log(control)
     return control.valueChanges.pipe(
       map(x => typeof x === 'string' ? x : null),
       tap(x => this.isLoadingAutocomplete = !(!x || x === '')),
