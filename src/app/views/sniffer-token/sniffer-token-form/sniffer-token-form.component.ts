@@ -53,7 +53,8 @@ export class SnifferTokenFormComponent implements OnInit {
     this.service.create(this.form).subscribe(res => {
       console.log(res)
       // todo mostrar mensaje de exito
-      this.bottomSheetRef.dismiss(res)
+      // todo descomentar esta linea depsues de hacer las pruebas con el backend
+     //  this.bottomSheetRef.dismiss(res)
     }, error => {
       // todo mostrar mensaje si ocurre un error
       console.error(error)

@@ -1,12 +1,24 @@
 # Sniffer Frontend
 
+
+## Información general
 SPA de visualización de datos para proyecto de grado.
 
 Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
+## Componentes del proyecto
+Esta aplicación cuenta con tres componentes principales:
+
+[El frontend](https://github.com/cristian-guerrero/proyecto_grado_frontend)
+
+[El backend](https://github.com/cristian-guerrero/proyecto_grado_backend_parse)
+
+[El sniffer](https://github.com/cristian-guerrero/proyecto_grado_python)
+
+
 ## Servidor de Desarrollo
 
-Corre el comando `ng serve` para arrancar un servidor de desarrollo . Navega a `http://localhost:4200/`. La aplicacion se recargara automaticamente se se realizan cambio en los archivos de codigo fuente.
+Corre el comando `ng serve` para arrancar un servidor de desarrollo . Navega a `http://localhost:4200/`. La aplicación se recargara automaticamente se se realizan cambio en los archivos de codigo fuente.
 
 
 ## Compilación
@@ -20,11 +32,3 @@ La documentación se genera utilizando el comando `yarn doc`,
 despues de generada se pueden econtrar en el folder `documentation` en el 
 directorio raiz de la aplicación.
 
-## Componentes del proyecto
-Esta aplicación cuenta con tres componentes principales:
-
-[El frontend](https://github.com/cristian-guerrero/proyecto_grado_frontend)
-
-[El backend](https://github.com/cristian-guerrero/proyecto_grado_backend_parse)
-
-[El sniffer](https://github.com/cristian-guerrero/proyecto_grado_python)

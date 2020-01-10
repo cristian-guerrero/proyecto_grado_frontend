@@ -39,7 +39,8 @@ export class Consts {
   }
 
   public static readonly CLOUD_FUNCTION = {
-    FILTER_COLUMNS: '_filter_columns'
+    FILTER_COLUMNS: '_filter_columns',
+    CREATE_SNIFFER_TOKEN: '_create_sniffer_token',
   }
 
 

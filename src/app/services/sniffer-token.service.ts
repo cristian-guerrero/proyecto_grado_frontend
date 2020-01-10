@@ -58,11 +58,18 @@ export class SnifferTokenService {
 
   create(from: FormGroup): Observable<Parse.Object> {
 
-    const data = {...from.value}
-    data[TokenClass.SNIFFER] =  data[TokenClass.SNIFFER].value
-    data[TokenClass.EXPIRY] =  data[TokenClass.EXPIRY].toDate()
+    const data = { ...from.value }
+    data[ TokenClass.SNIFFER ] = data[ TokenClass.SNIFFER ].value
+    data[ TokenClass.EXPIRY ] = data[ TokenClass.EXPIRY ].toDate()
     console.log(data)
-    return this.parse.createObject(data, Consts.PUBLIC_ACL, TokenClass.className)
+
+    return this.parse.runCloudFunction(Consts.CLOUD_FUNCTION.CREATE_SNIFFER_TOKEN, {
+      sniffer: data[ TokenClass.SNIFFER ].id,
+      expiry: data[ TokenClass.EXPIRY ]
+    })
+
+
+    //  return this.parse.createObject(data, Consts.PUBLIC_ACL, TokenClass.className)
 
   }
 
