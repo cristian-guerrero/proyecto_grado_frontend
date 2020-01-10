@@ -19,3 +19,12 @@ Para la documentación se utilizo la libreria [Compodoc](https://compodoc.app/).
 La documentación se genera utilizando el comando `yarn doc`, 
 despues de generada se pueden econtrar en el folder `documentation` en el 
 directorio raiz de la aplicación.
+
+## Componentes del proyecto
+Esta aplicación cuenta con tres componentes principales:
+
+[El frontend](https://github.com/cristian-guerrero/proyecto_grado_frontend)
+
+[El backend](https://github.com/cristian-guerrero/proyecto_grado_backend_parse)
+
+[El sniffer](https://github.com/cristian-guerrero/proyecto_grado_python)

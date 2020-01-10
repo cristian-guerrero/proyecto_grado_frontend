@@ -7,6 +7,8 @@ import { FilterColumnType, SelectValue } from './filterByColumnModels'
 import * as Parse from 'parse'
 import { COLUMNS_NAME } from '../util'
 
+import * as moment from 'moment'
+
 @Component({
   selector: 'app-filter-by-colum',
   templateUrl: './filter-by-colum.component.html',
@@ -62,18 +64,40 @@ export class FilterByColumComponent implements OnInit, OnChanges {
     })
   }
 
+  /**
+   * Crear la consulta con los parametros seleccionados en el filtro
+   * Los parametros se toman del formulario, solo si el formulario es valido
+   */
   buildQuery() {
     if (!this.form.valid) {
       return
     }
 
-    const { attribute, value } = this.form.value
-    console.log(this.query, attribute, value)
+    // tslint:disable-next-line:prefer-const
+    let { attribute, value } = this.form.value
 
-    this._query.equalTo(attribute, value.trim())
+    const newQuery = this.parse.cloneParseQuery(this.query)
+
+    if (moment.isMoment(value)) {
+
+      // value = value.toDate()
+      const starDay = value.startOf('d').toDate()
+      const endDay = value.endOf('d').toDate()
+
+      newQuery.greaterThanOrEqualTo(attribute, starDay)
+      newQuery.lessThanOrEqualTo(attribute, endDay)
+
+    } else if (value.constructor === String) {
+      console.log('string: ' + value)
+      value = value.trim()
+      newQuery.equalTo(attribute, value)
+    } else {
+      console.log('El formato del dato no es conocido: ', value)
+    }
+    console.log(newQuery, attribute, value)
 
 
-    this.query = this._query
+    this.query = newQuery
 
   }
 
