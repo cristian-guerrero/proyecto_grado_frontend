@@ -5,6 +5,7 @@ import { delay } from 'rxjs/operators'
 import * as Parse from 'parse'
 import { SnifferClass } from '../models/sniffer-class'
 import { TokenClass } from '../models/token-class'
+import { TableActionId } from '../modules/data-table/util'
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,15 @@ export class TokensResolverService implements Resolve<any> {
         TokenClass.HASH
       ],
       //  discard: [ SnifferClass.IP ]
+      hideActionButtons : [TableActionId.EDIT]
 
     })
   }
 
 
   query(): Parse.Query {
-    return new Parse.Query(TokenClass.className)
+    const  q =  new Parse.Query(TokenClass.className)
+    q.descending(TokenClass.CREATED_AT)
+    return q
   }
 }

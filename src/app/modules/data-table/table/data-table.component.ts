@@ -74,7 +74,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    * lista de botones de acción posibles para cada registro
    */
   actionButtons = TABLE_ACTIONS
-  @Input() hideActionButtons: number []
+  @Input() hideActionButtons: TableActionId []
 
   // tslint:disable-next-line:variable-name
   _query: Parse.Query

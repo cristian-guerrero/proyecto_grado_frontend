@@ -7,6 +7,7 @@ import { TokenClass } from '../../../models/token-class'
 import { debounceTime, map, mergeMap, startWith, tap } from 'rxjs/operators'
 import { SnifferTokenService } from '../../../services/sniffer-token.service'
 
+import * as moment from 'moment'
 @Component({
   selector: 'app-sniffer-token-form',
   templateUrl: './sniffer-token-form.component.html',
@@ -25,6 +26,8 @@ export class SnifferTokenFormComponent implements OnInit {
 
   isLoadingAutocomplete = false
 
+  minDate: Date
+
 
   constructor(private service: SnifferTokenService,
               private bottomSheetRef: MatBottomSheetRef<SnifferTokenFormComponent>) {
@@ -32,8 +35,10 @@ export class SnifferTokenFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.minDate = moment().toDate()
     this.form = this.service.buildSnifferTokenForm()
     this.filteredLeList = this.filterApplicationList(this.form.controls[ TokenClass.SNIFFER ] as FormControl)
+
   }
 
 
@@ -45,7 +50,15 @@ export class SnifferTokenFormComponent implements OnInit {
 
     if (!this.form.valid) {return}
 
-    console.log(this.form.value)
+    this.service.create(this.form).subscribe(res => {
+      console.log(res)
+      // todo mostrar mensaje de exito
+      this.bottomSheetRef.dismiss(res)
+    }, error => {
+      // todo mostrar mensaje si ocurre un error
+      console.error(error)
+    })
+
   }
 
 

@@ -7,6 +7,7 @@ import { ParseService } from './parse.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { TokenClass } from '../models/token-class'
 import { autocompleteValueModelValidator } from '../utli/validators/autocomplete-value-model.validator'
+import { Consts } from '../utli'
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +52,19 @@ export class SnifferTokenService {
   buildSnifferTokenForm(): FormGroup {
     return this.fb.group({
       [ TokenClass.SNIFFER ]: [ null, [ Validators.required, autocompleteValueModelValidator ] ],
-      [ TokenClass.EXPIRY ]: [ null, [] ],
+      [ TokenClass.EXPIRY ]: [ null, [ Validators.required ] ],
     })
   }
+
+  create(from: FormGroup): Observable<Parse.Object> {
+
+    const data = {...from.value}
+    data[TokenClass.SNIFFER] =  data[TokenClass.SNIFFER].value
+    data[TokenClass.EXPIRY] =  data[TokenClass.EXPIRY].toDate()
+    console.log(data)
+    return this.parse.createObject(data, Consts.PUBLIC_ACL, TokenClass.className)
+
+  }
+
 
 }

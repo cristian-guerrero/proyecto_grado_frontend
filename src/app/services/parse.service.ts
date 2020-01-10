@@ -144,6 +144,13 @@ export class ParseService {
     }
   }
 
+  /**
+   * Crea una nueva instancia en memoria de una Parse Query
+   * @param query
+   */
+  cloneParseQuery(query: Parse.Query): Parse.Query {
+   return  Parse.Query.fromJSON(query.className, query.toJSON())
+  }
 
 }
 

@@ -1,16 +1,13 @@
+<div [formGroup]="form" fxLayout="column" fxLayoutAlign="center center">
 
-
-<div [formGroup]="form">
-
-  <mat-form-field style="width: 100%" appearance="outline">
+  <mat-form-field style="width: 100%" appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
     <mat-label>Sniffer</mat-label>
     <input type="text"
            matInput [formControlName]="formField.SNIFFER" [matAutocomplete]="auto"
-           [required]="true"
-    >
+           [required]="true">
 
     <mat-spinner color="accent" matSuffix diameter="20"
-        *ngIf="isLoadingAutocomplete"></mat-spinner>
+                 *ngIf="isLoadingAutocomplete"></mat-spinner>
 
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayAutocomplete">
       <mat-option *ngFor="let option of filteredLeList | async" [value]="option">
@@ -29,16 +26,34 @@
 
   </mat-form-field>
 
+
+  <!-- todo verificar por que no toma el ancho -->
   <mat-form-field appearance="outline" fxFlex="100%" fxFlex.gt-sm="25%">
-    <mat-label>Fecha de busqueda</mat-label>
-    <input matInput [matDatepicker]="picker" [formControlName]="formField.EXPIRY">
+    <mat-label>Fecha de expiración</mat-label>
+    <input matInput [min]="minDate" [matDatepicker]="picker" [formControlName]="formField.EXPIRY">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+    <mat-datepicker #picker touchUi></mat-datepicker>
+
+    <mat-error *ngIf="form.get(formField.EXPIRY).hasError('required')">
+      La fecha de expiración es requerida
+    </mat-error>
   </mat-form-field>
+
 
 </div>
 
 
-<button mat-flat-button [disabled]="!form.valid"
-        (click)="action()" color="primary" >Guardar</button>
-<button mat-flat-button (click)="cancel()">Cancelar</button>
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+
+  <button mat-flat-button [disabled]="!form.valid"
+          ngClass.lt-md="button-margin"
+          class="big-button"
+          fxFlex="100%" fxFlex.gt-sm="40%"
+          (click)="action()" color="primary">Guardar
+  </button>
+  <button mat-flat-button (click)="cancel()"
+          ngClass.lt-md="button-margin"
+          class="big-button"
+          fxFlex="100%" fxFlex.gt-sm="40%">Cancelar
+  </button>
+</div>
