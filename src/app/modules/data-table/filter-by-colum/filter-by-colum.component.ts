@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { SnifferClass } from '../../../models/sniffer-class'
-import { Consts } from '../../../utli'
 import { ParseService } from '../../../services/parse.service'
 import { FilterColumnType, SelectValue } from './filterByColumnModels'
 import * as Parse from 'parse'
