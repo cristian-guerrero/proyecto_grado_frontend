@@ -1,10 +1,3 @@
-
-<button mat-icon-button  (click)="cancel()">
-  <mat-icon>close</mat-icon>
-</button>
-
-<p>details works!</p>
-
 <!-- todo crear una lista con las propiedades del objeto princiapal
       si llega el objeto y los objetos significaria que son hijos de el objeto
         si llega solo los objetos y no el objeto significaria que es una lista
@@ -12,3 +5,47 @@
 
 
 <!-- todo crear la funcionalidad de detalles solo para los datos por ahora -->
+
+
+<div fxLayout="column">
+
+
+  <div fxLayout="row" fxLayoutAlign="space-between" style="text-align: center">
+
+    <span style="font-size: 170%; margin-top: 24px">Detalles del Registro</span>
+    <button mat-icon-button (click)="cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div>
+
+
+    <ng-container *ngFor="let d of parent" [ngTemplateOutlet]="objectTemplate"
+                  [ngTemplateOutletContext]="{data:d}">
+    </ng-container>
+
+
+    <mat-divider *ngIf="thereAreChildren()"></mat-divider>
+
+  </div>
+
+
+  <div *ngIf="objects.length > 0">
+    <h2>Datos Hijos del Registro</h2>
+
+
+    <ng-container *ngFor="let ob of objects; let i = index">
+      <ng-container *ngFor="let d of ob" [ngTemplateOutlet]="objectTemplate"
+                    [ngTemplateOutletContext]="{data:d}">
+      </ng-container>
+
+      <mat-divider></mat-divider>
+    </ng-container>
+  </div>
+
+</div>
+<ng-template let-data="data" #objectTemplate>
+  <h3>{{data.label}}</h3>
+  <pre>{{data.value}}</pre>
+</ng-template>

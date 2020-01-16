@@ -21,8 +21,9 @@ import { MatNativeDateModule } from '@angular/material/core'
 
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter'
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core'
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip'
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
+import { MatDividerModule } from '@angular/material/divider'
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -53,6 +54,7 @@ const materialModules = [
   MatNativeDateModule,
   MatDatepickerModule,
   MatTooltipModule,
+  MatDividerModule,
 ]
 const ngForms = [ FormsModule, ReactiveFormsModule ]
 

@@ -6,11 +6,13 @@ import * as Parse from 'parse'
 import * as moment from 'moment'
 import { MatBottomSheet } from '@angular/material/bottom-sheet'
 import { SnifferTokenFormComponent } from '../../views/sniffer-token/sniffer-token-form/sniffer-token-form.component'
-import { DetailsComponent } from './details/details.component'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
 import { DataClass } from '../../models/data-class'
 import { DataDetailClass } from '../../models/dataDetail-class'
+import { COLUMNS_NAME } from './util'
+import { ComponentType } from '@angular/cdk/overlay'
+import { type } from 'os'
 
 @Injectable({
   providedIn: 'root'
@@ -63,8 +65,9 @@ export class DataTableService {
    * Si la propiedad no existe en el parse object devuelve un string vacio
    * @param object
    * @param key
+   * @param trim
    */
-  pipeData(object: Parse.Object, key: string) {
+  pipeData(object: Parse.Object, key: string, trim = true) {
 
 
     let data: any
@@ -82,11 +85,28 @@ export class DataTableService {
       return moment(data).format('YYYY-MM-DD')
     } else if (data instanceof Parse.Object) {
       return data.id
+    } else if (typeof data === 'string') {
+      // return data
+    } else {
+      const tmp = this.stringify(data)
+      return trim ? this.trimString(tmp, 20) : tmp
     }
-    return this.trimString(data, 20)
+
+
+    return trim ? this.trimString(data, 20) : data
+
   }
 
-  r
+  stringify(object: any): string {
+    try {
+      return JSON.stringify(object, undefined, 4)
+    } catch (e) {
+
+      console.log(e)
+      return ''
+    }
+  }
+
 
   /**
    * convierte un objeto dado a string y corta el resultado en el tamaño dado
@@ -102,7 +122,7 @@ export class DataTableService {
     return tmp
   }
 
-  openDetailsModal(object: Parse.Object): Observable<any> {
+  openDetailsModal<T>(object: Parse.Object, component: ComponentType<T>): Observable<any> {
 
     let observable: Observable<any>
     let parent = false
@@ -116,12 +136,12 @@ export class DataTableService {
 
     return observable.pipe(
       mergeMap(res => {
-        return this.bottonSheet.open(DetailsComponent, {
+        return this.bottonSheet.open(component, {
           data: {
             objects: res,
             object: parent ? object : undefined
           },
-          disableClose: true
+          disableClose: false
         }).afterDismissed()
       })
     )
@@ -149,18 +169,21 @@ export class DataTableService {
     )
 
   }
+
+  /**
+   *
+   * @param field
+   */
+  getFieldName(field: string) {
+    const names = COLUMNS_NAME
+
+    if (!names.hasOwnProperty(field)) {
+      console.log(` Se debe agregar el campo: ${ field }, en utils.ts en la constate COLUMNS_NAME`)
+    }
+
+    return names.hasOwnProperty(field) ? names[ field ] : field
+  }
 }
-
-
-export interface DetailsComponentData {
-
-  className: string
-  objectId: string
-  field: string
-
-}
-
-
 
 
 

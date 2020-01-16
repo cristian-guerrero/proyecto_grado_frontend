@@ -21,6 +21,7 @@ import { Consts } from '../../../utli'
 import { DataTableService } from '../data-table.service'
 import { SelectValue } from '../filter-by-colum/filterByColumnModels'
 import { TableCallbackContent, COLUMNS_NAME, TABLE_ACTIONS, TableActionId } from '../util'
+import { DetailsComponent } from '../details/details.component'
 
 
 @Component({
@@ -170,6 +171,9 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   setColumns(schema) {
+
+    console.log(schema)
+
     if (!schema) {return }
 
     const cloneSchema = { ...schema }
@@ -177,7 +181,6 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     const tempSchema = {}
     const colums: string [] = []
     const columnsNames: SelectValue [] = []
-    const names = COLUMNS_NAME
 
 
     if (this.discard) {
@@ -199,12 +202,9 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
 
     // tslint:disable-next-line:forin
     for (const x in tempSchema) {
-      if (!names.hasOwnProperty(x)) {
-        throw new Error(` En COLUMNS_NAME no existe la clave ${ x }`)
-      }
 
       colums.push(x)
-      columnsNames.push({ label: names[ x ], value: x })
+      columnsNames.push({ label: this.service.getFieldName(x), value: x })
     }
     colums.push('actions')
 
@@ -212,6 +212,8 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
 
     this.columns = colums
     this.columnsNames = columnsNames
+
+    console.log(columnsNames)
   }
 
 
@@ -233,7 +235,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
   buttonActionCallback(object: Parse.Object, id: TableActionId) {
 
 
-    this.actionCallback.emit(new TableCallbackContent( id, object ) )
+    this.actionCallback.emit(new TableCallbackContent(id, object))
 
     if (id === TableActionId.DETAILS) {
       this.openDetailsModal(object)
@@ -269,7 +271,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    */
   openDetailsModal(object: Parse.Object) {
 
-    this.service.openDetailsModal(object).subscribe(res => {
+    this.service.openDetailsModal(object, DetailsComponent).subscribe(res => {
       console.log(res)
     })
   }

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet'
 import { DialogDataInterface } from '../../../models/dialog-data.interface'
+import { DataTableService } from '../data-table.service'
 
 @Component({
   selector: 'app-details',
@@ -10,13 +11,19 @@ import { DialogDataInterface } from '../../../models/dialog-data.interface'
 export class DetailsComponent implements OnInit {
 
 
+  parent: any
+  objects: any[]
+
   constructor(private bottomSheetRef: MatBottomSheetRef<DetailsComponent, Parse.Object>,
-              @Inject(MAT_BOTTOM_SHEET_DATA) public data: DialogDataInterface
+              @Inject(MAT_BOTTOM_SHEET_DATA) public data: DialogDataInterface,
+              private service: DataTableService
   ) {
 
-    // TODO si el campo  object es diferente de undefined significa que la es una lista padre hijos
-    //  de lo contrario es una lista de detalles del mismo objeto por lo tanto la lista deberia traer solo un objeto
     console.log(data)
+
+    this.setComponentData(data)
+
+
   }
 
   ngOnInit() {
@@ -24,11 +31,60 @@ export class DetailsComponent implements OnInit {
 
 
   cancel() {
-    this.bottomSheetRef.dismiss(null)
+    this.bottomSheetRef.dismiss(undefined)
   }
 
 
-  showParent() {
+  thereIsParent() {
     return !!this.data.object
+  }
+
+  thereAreChildren() {
+    return (this.thereIsParent() && this.objects) || (this.objects && this.objects.length > 1)
+  }
+
+  /**
+   * todo extrar los datos para el parse object o la lista de parse objecte recibidos por parametros
+   * Convertir los nombres de los campos a nombres como se hace en las cabeceras de las tablas
+   */
+  extractDataFromParseObject(object: Parse.Object, addId = false) {
+
+    let data: any = {}
+    if (addId) {
+      data.objectId = object.id
+    }
+
+    data = { ...data, ...object.attributes }
+    const temp = []
+
+    for (const x in data) {
+      const tmpValue = data [ x ]
+      temp.push({ label: this.service.getFieldName(x), value: this.service.pipeData(object, x, false) })
+    }
+
+
+    return temp
+
+  }
+
+
+  setComponentData(data: DialogDataInterface) {
+
+    const tmpObjects = [ ...data.objects ]
+    const parent = this.thereIsParent() ? data.object : tmpObjects.shift()
+
+
+    /*
+    tmpObjects.push(parent)
+    tmpObjects.push(parent)
+    tmpObjects.push(parent)
+     */
+
+
+    this.parent = this.extractDataFromParseObject(parent, true)
+    this.objects = tmpObjects.map(x => this.extractDataFromParseObject(x, true))
+
+    console.log(this.parent, this.objects)
+
   }
 }
