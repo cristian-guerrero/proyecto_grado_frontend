@@ -9,6 +9,8 @@ import { SnifferTokenFormComponent } from '../../views/sniffer-token/sniffer-tok
 import { DetailsComponent } from './details/details.component'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
+import { DataClass } from '../../models/data-class'
+import { DataDetailClass } from '../../models/dataDetail-class'
 
 @Injectable({
   providedIn: 'root'
@@ -36,11 +38,21 @@ export class DataTableService {
     return this.parse.updateObject(row, data)
   }
 
-  getRowDetails(row: Parse.Object): Observable<Parse.Object> {
-    const q = this.parse.query(row.className)
+  getRowDetails(row: Parse.Object, className?: string, field?: string): Observable<Parse.Object[]> {
+    let q: Parse.Query
+
+    if (className && field) {
+      q = this.parse.query(className)
+      q.equalTo(field, row.id)
+
+    } else {
+
+      q = this.parse.query(row.className)
+      q.equalTo('objectId', row.id)
+
+    }
     q.includeAll()
-    q.equalTo('objectId', row.id)
-    return this.parse.findFirstByQuery(q)
+    return this.parse.findByQuery(q)
 
   }
 
@@ -92,11 +104,23 @@ export class DataTableService {
 
   openDetailsModal(object: Parse.Object): Observable<any> {
 
+    let observable: Observable<any>
+    let parent = false
 
-    return this.getRowDetails(object).pipe(
+    if (object.className === DataClass.className) {
+      parent = true
+      observable = this.getRowDetails(object, DataDetailClass.className, DataDetailClass.DATA)
+    } else {
+      observable = this.getRowDetails(object)
+    }
+
+    return observable.pipe(
       mergeMap(res => {
         return this.bottonSheet.open(DetailsComponent, {
-          data: res,
+          data: {
+            objects: res,
+            object: parent ? object : undefined
+          },
           disableClose: true
         }).afterDismissed()
       })
@@ -128,7 +152,13 @@ export class DataTableService {
 }
 
 
+export interface DetailsComponentData {
 
+  className: string
+  objectId: string
+  field: string
+
+}
 
 
 
