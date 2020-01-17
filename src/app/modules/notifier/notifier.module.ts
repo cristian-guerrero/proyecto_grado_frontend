@@ -13,6 +13,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 }
 
+/**
+ * @deprecated
+ * este modulo sera reemplazado por el modulo LoadingAndNotifierModule
+ * se debe eliminar despues
+ */
 @NgModule({
   declarations: [
     NotifierComponent

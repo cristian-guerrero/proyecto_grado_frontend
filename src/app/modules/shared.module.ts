@@ -73,7 +73,7 @@ const declaration = [
     ...materialModules,
     ...declaration,
     ...ngForms,
-    NotifierModule
+    // NotifierModule
   ],
   providers: [
     ...providers
