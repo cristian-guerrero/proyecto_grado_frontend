@@ -1,1 +1,13 @@
-<p>loading works!</p>
+<span mat-dialog-title *ngIf="canShowTitle()" style="max-width: 300px">
+  {{data.title}}
+</span>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+
+  <mat-spinner></mat-spinner>
+
+  <span *ngIf="canShowMessage()" class="span-style">
+    {{data.message}}
+  </span>
+
+</div>

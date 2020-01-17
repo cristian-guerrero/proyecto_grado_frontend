@@ -24,6 +24,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
 import { MatDividerModule } from '@angular/material/divider'
+import { LoadingAndNotifierModule } from '../loading-and-notifier/loading-and-notifier.module'
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -71,6 +72,7 @@ const ngForms = [ FormsModule, ReactiveFormsModule ]
     ...ngForms,
     FlexLayoutModule,
     ExtendedModule,
+    LoadingAndNotifierModule.forRoot()
 
   ],
   exports: [

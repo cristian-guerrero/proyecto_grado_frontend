@@ -22,6 +22,7 @@ import { DataTableService } from '../data-table.service'
 import { SelectValue } from '../filter-by-colum/filterByColumnModels'
 import { TableCallbackContent, COLUMNS_NAME, TABLE_ACTIONS, TableActionId } from '../util'
 import { DetailsComponent } from '../details/details.component'
+import { LoadingAndNotifierService } from '../../loading-and-notifier/loading-and-notifier.service'
 
 
 @Component({
@@ -97,11 +98,15 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   constructor(private parse: ParseService,
-              private service: DataTableService) {}
+              private service: DataTableService,
+              private notifier: LoadingAndNotifierService) {}
 
   ngOnInit() {
     this.findByQuery(this._query, true)
     this.hiddeActionButton()
+
+
+    this.notifier.showMessage('Un mensaje')
 
 
   }
@@ -135,6 +140,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
 
   // todo pasar esta funcionalidad al servicio
   findData([ skip, limit ], query, withCount) {
+    this.notifier.openLoadingComponent()
     this.subscription = this.parse.findWithCount(query, limit, skip, withCount).subscribe(res => {
       console.log(res, limit, skip)
       if (res.count) {
@@ -145,7 +151,10 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
       // this.mapDataTable()
 
       this.dataSource = new MatTableDataSource<Parse.Object>(res.data)
+      this.notifier.closeLoadingComponent()
 
+    }, err => {
+      this.notifier.closeLoadingComponent()
     })
   }
 
