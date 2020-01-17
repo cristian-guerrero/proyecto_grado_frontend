@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs'
 import { DataClass } from '../models/data-class'
 import { ParseService } from '../services/parse.service'
 import * as Parse from 'parse'
+import { TableActionId } from '../modules/data-table/util'
+import { TokenClass } from '../models/token-class'
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,21 @@ export class SnifferDataResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log(route.data)
     // return this.findData()
-    return this.query()
+    return of({
+      query: this.query(),
+      only: [
+        DataClass.OBJECT_ID,
+      ],
+      //  discard: [ SnifferClass.IP ],
+      hideActionButtons: [ TableActionId.EDIT ]
+    })
   }
 
 
-  query(): Observable<Parse.Query> {
-    return of(new Parse.Query(DataClass.className))
+  query(): Parse.Query {
+
+    const q = new Parse.Query(DataClass.className)
+    q.descending(TokenClass.CREATED_AT)
+    return q
   }
 }

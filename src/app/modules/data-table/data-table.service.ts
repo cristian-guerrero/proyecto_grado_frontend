@@ -99,7 +99,7 @@ export class DataTableService {
 
   stringify(object: any): string {
     try {
-      return JSON.stringify(object, undefined, 4)
+      return JSON.stringify(object, undefined, 2)
     } catch (e) {
 
       console.log(e)
@@ -178,7 +178,7 @@ export class DataTableService {
     const names = COLUMNS_NAME
 
     if (!names.hasOwnProperty(field)) {
-      console.log(` Se debe agregar el campo: ${ field }, en utils.ts en la constate COLUMNS_NAME`)
+      console.error(` Se debe agregar el campo: ${ field }, en utils.ts en la constate COLUMNS_NAME`)
     }
 
     return names.hasOwnProperty(field) ? names[ field ] : field

@@ -35,6 +35,6 @@ export class SniffersResolverService implements Resolve<any> {
   }
 
   query(): Parse.Query {
-    return new Parse.Query(SnifferClass.className)
+    return this.parse.query(SnifferClass.className)
   }
 }
