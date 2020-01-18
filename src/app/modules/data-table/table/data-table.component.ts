@@ -106,7 +106,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     this.hiddeActionButton()
 
 
-    this.notifier.showMessage('Un mensaje')
+   //  this.notifier.showMessage('Un mensaje')
 
 
   }

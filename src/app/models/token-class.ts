@@ -8,5 +8,6 @@ export class TokenClass extends GenericClass {
   public static readonly EXPIRY = 'expiry'
   public static readonly CREATED_BY = 'createBy'
   public static readonly HASH = 'hash'
+  public static readonly ACTIVE = 'active'
 
 }

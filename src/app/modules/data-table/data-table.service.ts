@@ -13,6 +13,8 @@ import { DataDetailClass } from '../../models/dataDetail-class'
 import { COLUMNS_NAME } from './util'
 import { ComponentType } from '@angular/cdk/overlay'
 import { type } from 'os'
+import { GenericClass } from '../../models/generic-class'
+import { TokenClass } from '../../models/token-class'
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,7 @@ export class DataTableService {
   deleteRow(row: Parse.Object): Observable<Parse.Object> {
 
     row.setACL(Consts.PRIVATE_ACL)
-    return this.parse.updateObject(row, {})
+    return this.parse.updateObject(row, { [ TokenClass.ACTIVE ]: false })
   }
 
   updateRow(row: Parse.Object, data) {

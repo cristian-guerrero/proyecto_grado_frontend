@@ -61,7 +61,7 @@ export class SnifferTokenService {
     const data = { ...from.value }
     data[ TokenClass.SNIFFER ] = data[ TokenClass.SNIFFER ].value
     data[ TokenClass.EXPIRY ] = data[ TokenClass.EXPIRY ].toDate()
-    console.log(data)
+    data [TokenClass.ACTIVE] = true
 
     return this.parse.runCloudFunction(Consts.CLOUD_FUNCTION.CREATE_SNIFFER_TOKEN, {
       sniffer: data[ TokenClass.SNIFFER ].id,
