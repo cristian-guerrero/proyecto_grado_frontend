@@ -58,6 +58,7 @@ export class DetailsComponent implements OnInit {
     const temp = []
 
     for (const x in data) {
+      if (!data.hasOwnProperty(x )) {continue}
       const tmpValue = data [ x ]
       temp.push({ label: this.service.getFieldName(x), value: this.service.pipeData(object, x, false) })
     }
@@ -69,6 +70,7 @@ export class DetailsComponent implements OnInit {
 
 
   setComponentData(data: DialogDataInterface) {
+    console.log(data)
 
     const tmpObjects = [ ...data.objects ]
     const parent = this.thereIsParent() ? data.object : tmpObjects.shift()

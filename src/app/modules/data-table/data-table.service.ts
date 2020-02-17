@@ -47,7 +47,7 @@ export class DataTableService {
 
     if (className && field) {
       q = this.parse.query(className)
-      q.equalTo(field, row.id)
+      q.equalTo(field, row)
 
     } else {
 
@@ -124,13 +124,14 @@ export class DataTableService {
     return tmp
   }
 
-  openDetailsModal<T>(object: Parse.Object, component: ComponentType<T>): Observable<any> {
+  openDetailsModal<T>(component: ComponentType<T>, object: Parse.Object): Observable<any> {
 
     let observable: Observable<any>
     let parent = false
 
     if (object.className === DataClass.className) {
       parent = true
+      console.log('open details modal with parent ')
       observable = this.getRowDetails(object, DataDetailClass.className, DataDetailClass.DATA)
     } else {
       observable = this.getRowDetails(object)

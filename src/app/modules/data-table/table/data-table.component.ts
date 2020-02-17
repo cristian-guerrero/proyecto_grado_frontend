@@ -280,7 +280,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    */
   openDetailsModal(object: Parse.Object) {
 
-    this.service.openDetailsModal(object, DetailsComponent).subscribe(res => {
+    this.service.openDetailsModal( DetailsComponent, object).subscribe(res => {
       console.log(res)
     })
   }
