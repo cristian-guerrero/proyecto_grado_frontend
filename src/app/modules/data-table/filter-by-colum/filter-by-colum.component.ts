@@ -148,7 +148,7 @@ export class FilterByColumComponent implements OnInit, OnChanges {
     switch (schemaType) {
 
       case FilterColumnType.TEXT:
-      case FilterColumnType.OBJECT:
+      // case FilterColumnType.OBJECT:
         return FilterColumnType.TEXT
       case FilterColumnType.DATE:
         return FilterColumnType.DATE
