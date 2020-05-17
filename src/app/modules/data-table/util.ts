@@ -18,7 +18,9 @@ export const COLUMNS_NAME = {
   username: 'Nombre de Usuario',
   email: 'Correo Electrónico',
   active: 'Activo',
-  createdBy: 'Creado por'
+  createdBy: 'Creado por',
+  token: 'Token',
+  clientIp: 'Ip Cliente'
 
 }
 

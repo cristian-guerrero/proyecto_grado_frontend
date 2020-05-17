@@ -1,17 +1,18 @@
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ParseService } from '../../services/parse.service'
 import { NotifierService } from '../../modules/notifier/notifier.service'
 import { Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { UserClass } from '../../models/user-class'
+import { LoadingAndNotifierService } from '../../modules/loading-and-notifier/loading-and-notifier.service'
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: [ './login.component.scss' ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup
   loading: boolean
@@ -23,11 +24,16 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private parse: ParseService,
               private router: Router,
-              private ngZone: NgZone) {
+              // private ngZone: NgZone
+              private notifier: LoadingAndNotifierService) {
     this.form = this.buildForm(this.fb)
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    this.notifier.closeLoadingComponent()
   }
 
 
@@ -44,6 +50,7 @@ export class LoginComponent implements OnInit {
       return
     }
     this.loading = true
+    this.notifier.openLoadingComponent('Por favor espere', '')
     console.log(this.form.value)
     this.parse.logIn(this.form.value).subscribe(response => {
       console.log(response)
@@ -53,6 +60,8 @@ export class LoginComponent implements OnInit {
       // this.notifier.showSuccess('Bienvenido')
     }, err => {
       this.loading = false
+      this.notifier.closeLoadingComponent()
+      this.notifier.showMessage('Ocurrio un error al intentar ingresar')
       console.log(err)
       // this.notifier.showError('Nombre de usuario o contraseña incorrectas')
     })

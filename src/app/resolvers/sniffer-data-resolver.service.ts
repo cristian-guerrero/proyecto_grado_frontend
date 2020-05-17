@@ -22,6 +22,10 @@ export class SnifferDataResolverService implements Resolve<any> {
       query: this.query(),
       only: [
         DataClass.OBJECT_ID,
+        DataClass.IP,
+        DataClass.SNIFFER,
+        DataClass.PROTOCOL,
+        DataClass.TOKEN,
       ],
       //  discard: [ SnifferClass.IP ],
       hideActionButtons: [ TableActionId.EDIT ]

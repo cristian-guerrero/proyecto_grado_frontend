@@ -55,8 +55,10 @@ export class DataTableService {
       q.equalTo('objectId', row.id)
 
     }
+
+    q.limit(50)
     q.includeAll()
-    return this.parse.findByQuery(q)
+    return this.parse.findByQuery(q, false)
 
   }
 
