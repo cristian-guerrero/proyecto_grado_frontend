@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs'
 import { SnifferClass } from '../models/sniffer-class'
 import { ParseService } from '../services/parse.service'
 import * as Parse from 'parse'
+import { TableActionId } from '../modules/data-table/util'
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,10 @@ export class SniffersResolverService implements Resolve<any> {
         SnifferClass.OBJECT_ID,
         SnifferClass.IP,
         SnifferClass.NAME,
+        SnifferClass.CREATED_AT
       ],
      //  discard: [ SnifferClass.IP ]
+      hideActionButtons: null
 
     })
   }

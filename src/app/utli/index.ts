@@ -3,11 +3,11 @@ import * as Parse from 'parse'
 /**
  * public server
  */
-// export const serve = 'https://sniffer-back.ddns.net'
+export const serve = 'https://sniffer-back.ddns.net'
 /**
  * local server
  */
-export const serve = 'http://localhost:5337'
+// export const serve = 'http://localhost:5337'
 
 
 export class Consts {

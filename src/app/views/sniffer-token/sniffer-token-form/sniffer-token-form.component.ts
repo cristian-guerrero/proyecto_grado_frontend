@@ -8,6 +8,7 @@ import { debounceTime, map, mergeMap, startWith, tap } from 'rxjs/operators'
 import { SnifferTokenService } from '../../../services/sniffer-token.service'
 
 import * as moment from 'moment'
+import { LoadingAndNotifierService } from '../../../modules/loading-and-notifier/loading-and-notifier.service'
 @Component({
   selector: 'app-sniffer-token-form',
   templateUrl: './sniffer-token-form.component.html',
@@ -30,7 +31,8 @@ export class SnifferTokenFormComponent implements OnInit {
 
 
   constructor(private service: SnifferTokenService,
-              private bottomSheetRef: MatBottomSheetRef<SnifferTokenFormComponent>) {
+              private bottomSheetRef: MatBottomSheetRef<SnifferTokenFormComponent>,
+              private loadingService: LoadingAndNotifierService) {
 
   }
 
@@ -50,14 +52,18 @@ export class SnifferTokenFormComponent implements OnInit {
 
     if (!this.form.valid) {return}
 
+    this.loadingService.openLoadingComponent()
     this.service.create(this.form).subscribe(res => {
       console.log(res)
       // todo mostrar mensaje de exito
       // todo descomentar esta linea depsues de hacer las pruebas con el backend
      //  this.bottomSheetRef.dismiss(res)
+      this.loadingService.closeLoadingComponent()
+      this.bottomSheetRef.dismiss(null)
     }, error => {
       // todo mostrar mensaje si ocurre un error
       console.error(error)
+      this.loadingService.closeLoadingComponent()
     })
 
   }

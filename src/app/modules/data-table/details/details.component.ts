@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet'
 import { DialogDataInterface } from '../../../models/dialog-data.interface'
 import { DataTableService } from '../data-table.service'
+import { LoadingAndNotifierService } from '../../loading-and-notifier/loading-and-notifier.service'
 
 @Component({
   selector: 'app-details',
@@ -16,7 +17,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(private bottomSheetRef: MatBottomSheetRef<DetailsComponent, Parse.Object>,
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: DialogDataInterface,
-              private service: DataTableService
+              private service: DataTableService,
+              private loadingService: LoadingAndNotifierService
   ) {
 
     console.log(data)
@@ -27,6 +29,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadingService.closeLoadingComponent()
   }
 
 

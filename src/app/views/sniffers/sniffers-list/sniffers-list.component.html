@@ -3,6 +3,7 @@
 
   <app-data-table [query]="query" [only]="only"
                   (actionCallback)="actionCallback($event)"
+                  [hideActionButtons]="hideActionButtons"
                   [discard]="discard"></app-data-table>
 
   <app-fab-button (click)="openAddDialog()"></app-fab-button>

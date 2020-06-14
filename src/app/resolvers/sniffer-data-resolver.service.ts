@@ -26,6 +26,7 @@ export class SnifferDataResolverService implements Resolve<any> {
         DataClass.SNIFFER,
         DataClass.PROTOCOL,
         DataClass.TOKEN,
+        DataClass.CREATED_AT
       ],
       //  discard: [ SnifferClass.IP ],
       hideActionButtons: [ TableActionId.EDIT ]

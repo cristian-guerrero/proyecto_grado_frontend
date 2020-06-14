@@ -15,6 +15,7 @@ export class SniffersListComponent implements OnInit {
   query: Parse.Query
   only: string []
   discard: string []
+  hideActionButtons: TableActionId[ ]
 
   constructor(private route: ActivatedRoute,
               private bottonSheet: MatBottomSheet) {
@@ -23,10 +24,11 @@ export class SniffersListComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.data)
-    const { query, only, discard } = this.route.snapshot.data.data
+    const { query, only, discard, hideActionButtons } = this.route.snapshot.data.data
     this.query = query
     this.only = only
     this.discard = discard
+    this.hideActionButtons = hideActionButtons
   }
 
 

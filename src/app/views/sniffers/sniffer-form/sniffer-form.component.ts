@@ -7,6 +7,7 @@ import { ParseService } from '../../../services/parse.service'
 import { Consts } from '../../../utli'
 import { JSONValidator } from '../../../utli/JSON-validator'
 import { SharedService } from '../../../services/shared.service'
+import { LoadingAndNotifierService } from '../../../modules/loading-and-notifier/loading-and-notifier.service'
 
 @Component({
   selector: 'app-sniffer-form',
@@ -22,7 +23,8 @@ export class SnifferFormComponent implements OnInit {
               @Inject(MAT_BOTTOM_SHEET_DATA) public data: DialogDataInterface,
               private fb: FormBuilder,
               private parse: ParseService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private loadingService: LoadingAndNotifierService) {
 
     if (this.data.object) {
       //  this.prepareData(this.data.object)
@@ -44,7 +46,9 @@ export class SnifferFormComponent implements OnInit {
 
   action() {
     if (this.form.valid) {
+      this.loadingService.openLoadingComponent()
       if (this.data.object) {
+
         this.update()
       } else {
         this.create()
@@ -58,11 +62,13 @@ export class SnifferFormComponent implements OnInit {
     data[ SnifferClass.CONFIG ] = JSON.parse(data[ SnifferClass.CONFIG ])
     this.parse.createObject(data, Consts.PUBLIC_ACL, SnifferClass.className).subscribe(res => {
       console.log(res)
+      this.loadingService.closeLoadingComponent()
       this.bottomSheetRef.dismiss(res)
       // todo mostrar mensaje
     }, err => {
       // todo mostrar mensaje
       console.log(err)
+      this.loadingService.closeLoadingComponent()
     })
   }
 
@@ -74,7 +80,10 @@ export class SnifferFormComponent implements OnInit {
     }
     this.parse.updateObject(this.data.object, data).subscribe(res => {
       console.log(res)
+      this.loadingService.closeLoadingComponent()
       this.bottomSheetRef.dismiss(res)
+    }, err => {
+      this.loadingService.closeLoadingComponent()
     })
   }
 

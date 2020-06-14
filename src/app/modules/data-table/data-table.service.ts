@@ -15,6 +15,7 @@ import { ComponentType } from '@angular/cdk/overlay'
 import { type } from 'os'
 import { GenericClass } from '../../models/generic-class'
 import { TokenClass } from '../../models/token-class'
+import { LoadingAndNotifierService } from '../loading-and-notifier/loading-and-notifier.service'
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,16 @@ import { TokenClass } from '../../models/token-class'
 export class DataTableService {
 
   constructor(private parse: ParseService,
-              private bottonSheet: MatBottomSheet) { }
+              private bottonSheet: MatBottomSheet,
+              private loadingService: LoadingAndNotifierService) { }
 
 
+  /**
+   * Busca el esquema de la colección en la base de datos
+   * para generar dinamicamente los campos del filtro
+   *
+   * @param query
+   */
   getSchema(query: Parse.Query): Observable<any> {
 
     return this.parse.runCloudFunction(Consts.CLOUD_FUNCTION.FILTER_COLUMNS,
@@ -126,10 +134,17 @@ export class DataTableService {
     return tmp
   }
 
+  /**
+   * Abre el modal de detalles de un registro
+   * @param component
+   * @param object
+   */
   openDetailsModal<T>(component: ComponentType<T>, object: Parse.Object): Observable<any> {
 
     let observable: Observable<any>
     let parent = false
+
+    this.loadingService.openLoadingComponent('Cargando detalles')
 
     if (object.className === DataClass.className) {
       parent = true
@@ -152,6 +167,11 @@ export class DataTableService {
     )
   }
 
+  /**
+   * Abre el modal de confirmación
+   * @param object
+   * @param data
+   */
   openConfirmDeleteDialog(object: Parse.Object, data: Parse.Object[]): Observable<Parse.Object[]> {
     return this.bottonSheet.open(ConfirmDialogComponent, {
 
@@ -176,6 +196,8 @@ export class DataTableService {
   }
 
   /**
+   * Imprime en consola cunado un campo del filtro no tiene su correspondiente
+   * Nombre para mostrar en el campo del select
    *
    * @param field
    */

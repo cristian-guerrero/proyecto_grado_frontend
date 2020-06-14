@@ -12,7 +12,7 @@
 <div class="table-container ">
 
 
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource" *ngIf="dataSource">
 
     <tr mat-header-row *matHeaderRowDef="columns"></tr>
     <tr mat-row *matRowDef="let row; columns: columns;"></tr>

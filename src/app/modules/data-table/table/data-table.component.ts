@@ -20,7 +20,7 @@ import * as Parse from 'parse'
 import { Consts } from '../../../utli'
 import { DataTableService } from '../data-table.service'
 import { SelectValue } from '../filter-by-colum/filterByColumnModels'
-import { TableCallbackContent, COLUMNS_NAME, TABLE_ACTIONS, TableActionId } from '../util'
+import { TableCallbackContent, COLUMNS_NAME, TABLE_ACTIONS, TableActionId, TableActionsModel } from '../util'
 import { DetailsComponent } from '../details/details.component'
 import { LoadingAndNotifierService } from '../../loading-and-notifier/loading-and-notifier.service'
 
@@ -75,7 +75,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * lista de botones de acción posibles para cada registro
    */
-  actionButtons = TABLE_ACTIONS
+  actionButtons: TableActionsModel []
   @Input() hideActionButtons: TableActionId []
 
   // tslint:disable-next-line:variable-name
@@ -106,7 +106,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
     this.hiddeActionButton()
 
 
-   //  this.notifier.showMessage('Un mensaje')
+    //  this.notifier.showMessage('Un mensaje')
 
 
   }
@@ -257,18 +257,27 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    * Oculta los botones de accion que no se deben mostrar en la tabla
    */
   hiddeActionButton() {
-    if (!this.hideActionButtons) {return }
-    const temp = [ ...this.actionButtons ]
-    for (const x of this.hideActionButtons) {
 
-      for (const y of temp) {
-        console.log(y)
-        if (x === y.id) {
-          y.active = false
+    const temp = TABLE_ACTIONS.map(x => {
+      return {
+        ...x,
+        active: true
+      }
+    })
+
+    if (this.hideActionButtons) {
+      for (const x of this.hideActionButtons) {
+        for (const y of temp) {
+
+          console.log(y)
+          if (x === y.id) {
+            y.active = false
+          }
         }
       }
-    }
 
+    }
+    
     this.actionButtons = temp
 
 
@@ -280,7 +289,7 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
    */
   openDetailsModal(object: Parse.Object) {
 
-    this.service.openDetailsModal( DetailsComponent, object).subscribe(res => {
+    this.service.openDetailsModal(DetailsComponent, object).subscribe(res => {
       console.log(res)
     })
   }
