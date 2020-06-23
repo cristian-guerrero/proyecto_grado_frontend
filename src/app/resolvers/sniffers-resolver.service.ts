@@ -5,6 +5,7 @@ import { SnifferClass } from '../models/sniffer-class'
 import { ParseService } from '../services/parse.service'
 import * as Parse from 'parse'
 import { TableActionId } from '../modules/data-table/util'
+import { TokenClass } from '../models/token-class'
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,8 @@ export class SniffersResolverService implements Resolve<any> {
   }
 
   query(): Parse.Query {
-    return this.parse.query(SnifferClass.className)
+    const q =  this.parse.query(SnifferClass.className)
+    q.descending(SnifferClass.CREATED_AT)
+    return q
   }
 }

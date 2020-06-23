@@ -64,7 +64,7 @@ export class DataTableService {
 
     }
 
-    q.limit(50)
+    q.limit(100)
     q.includeAll()
     return this.parse.findByQuery(q, false)
 

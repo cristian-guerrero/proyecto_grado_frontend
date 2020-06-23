@@ -277,9 +277,8 @@ export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
       }
 
     }
-    
-    this.actionButtons = temp
 
+    this.actionButtons = temp
 
   }
 

@@ -12,7 +12,8 @@ export const serve = 'https://sniffer-back.ddns.net'
 
 export class Consts {
 
-  public static readonly APP_VERSION = '0.0.2'
+  public static readonly APP_VERSION = '0.0.3' +
+    ''
 
   public static readonly PATTERNS = {
     emailExpression: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
